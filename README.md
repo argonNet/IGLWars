@@ -37,6 +37,17 @@ Convention de codage
     Comme les variables, c'est à dire première lettre en minuscule puis la suite en majuscule. Dans l'idéal, une fonction devrait plutôt être un verbe.
     Ex : getMyMorpion(), isFalling(), runFast()
 
+### Emplacement du code ###
+
+Ordre à respecter dans les classes : 
+- les constantes (privé, protégé, public)
+- les membres (privé, protégé, public)
+- les constructeur (privé, protégé, public)
+- les destructeur (privé, protégé, public)
+- les méthodes (privé, protégé, public)
+- les getter et setter (privé, protégé, public)
+
+Les constantes globales sont stockées dans une classe a part.
 
 ### Commentaires ###
 
