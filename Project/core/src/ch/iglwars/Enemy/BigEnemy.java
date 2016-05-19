@@ -9,7 +9,7 @@ import ch.iglwars.Constants;
  */
 public class BigEnemy extends Enemy{
 
-    private static float WIDHT = 80;
+    public static float WIDTH = 80;
 
     public static String [] TEXTURES_NAME = {
             "enemy_big_0.png",

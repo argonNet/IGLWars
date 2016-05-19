@@ -3,6 +3,8 @@ package ch.iglwars.Level;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.Random;
+
 import ch.iglwars.Enemy.BigEnemy;
 import ch.iglwars.Enemy.Enemy;
 import ch.iglwars.Enemy.MediumEnemy;
@@ -13,12 +15,13 @@ import ch.iglwars.Enemy.SmallEnemy;
  */
 public class Level1 extends Level {
 
-    private static final  int FIRST_SALVE_COUNT = 5;
+    private static final  int FIRST_SALVE_COUNT = 10;
     private static final  int SECOND_SALVE_COUNT = 5;
+    private static final  int THIRD_SALVE_COUNT = 3;
 
-    private SmallEnemy[] firstSalve;
-    private MediumEnemy[] secondSalve;
-    private BigEnemy[] thirdSalve;
+    private Salve firstSalve;
+    private Salve secondSalve;
+    private Salve thirdSalve;
 
     private int nextEnemyToGo;
     private long lastGoTime;
@@ -29,21 +32,22 @@ public class Level1 extends Level {
     public Level1(){
         lastGoTime = 0;
 
+        Random rand = new Random();
 
-        firstSalve = new SmallEnemy[FIRST_SALVE_COUNT];
+        firstSalve = new Salve();
         for(int i = 0; i <  FIRST_SALVE_COUNT; i++){
-            firstSalve[i] = new SmallEnemy(100);
+            firstSalve.addEnemy(new SmallEnemy(rand.nextInt(480 - ((int) SmallEnemy.WIDTH))));
         }
 
-        secondSalve = new MediumEnemy[SECOND_SALVE_COUNT];
-        for(int i = 0; i <  FIRST_SALVE_COUNT; i++){
-            secondSalve[i] = new MediumEnemy(0);
+        secondSalve = new Salve();
+        for(int i = 0; i <  SECOND_SALVE_COUNT; i++){
+            secondSalve.addEnemy(new MediumEnemy(rand.nextInt(480 - ((int) MediumEnemy.WIDTH))));
         }
 
 
-        thirdSalve = new BigEnemy[SECOND_SALVE_COUNT];
-        for(int i = 0; i <  FIRST_SALVE_COUNT; i++){
-            thirdSalve[i] = new BigEnemy(300);
+        thirdSalve = new Salve();
+        for(int i = 0; i <  THIRD_SALVE_COUNT; i++){
+            thirdSalve.addEnemy(new BigEnemy(rand.nextInt(480 - ((int) BigEnemy.WIDTH))));
         }
 
         nextEnemyToGo = 0;
@@ -55,23 +59,48 @@ public class Level1 extends Level {
     @Override
     public void Run(SpriteBatch batch) {
 
-        if(nextEnemyToGo < FIRST_SALVE_COUNT && TimeUtils.millis() - lastGoTime > 500){
-            firstSalve[nextEnemyToGo].Start();
-            secondSalve[nextEnemyToGo].Start();
-            thirdSalve[nextEnemyToGo].Start();
-            lastGoTime = TimeUtils.millis();
-            nextEnemyToGo++;
+        if(TimeUtils.millis() - lastGoTime > 500){
+            if(!firstSalve.isGone() && nextEnemyToGo < FIRST_SALVE_COUNT) {
+                firstSalve.getEnemy(nextEnemyToGo).Start();
+
+                lastGoTime = TimeUtils.millis();
+                nextEnemyToGo++;
+            }
+            else if(!secondSalve.isGone() && nextEnemyToGo < SECOND_SALVE_COUNT) {
+                secondSalve.getEnemy(nextEnemyToGo).Start();
+
+                lastGoTime = TimeUtils.millis();
+                nextEnemyToGo++;
+            }
+            else if(!thirdSalve.isGone() && nextEnemyToGo < THIRD_SALVE_COUNT) {
+                thirdSalve.getEnemy(nextEnemyToGo).Start();
+
+                lastGoTime = TimeUtils.millis();
+                nextEnemyToGo++;
+            }
+            else {
+                if(!firstSalve.isGone()) {
+                    firstSalve.setGone(true);
+                }
+                else if(!secondSalve.isGone()) {
+                    secondSalve.setGone(true);
+                }
+                else if(!thirdSalve.isGone()) {
+                    thirdSalve.setGone(true);
+                }
+                nextEnemyToGo = 0;
+            }
         }
 
-        for (SmallEnemy enemy : firstSalve) {
+        for (Enemy enemy : firstSalve.getEnemies()) {
             enemy.draw(batch);
         }
 
-        for (MediumEnemy enemy : secondSalve) {
+        for (Enemy enemy : secondSalve.getEnemies()) {
             enemy.draw(batch);
         }
 
-        for (BigEnemy enemy : thirdSalve) {
+        for (Enemy enemy : thirdSalve.getEnemies()) {
             enemy.draw(batch);
         }
 
