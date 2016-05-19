@@ -3,6 +3,7 @@ package ch.iglwars;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
+ * TO-DO: Mettre des éléments de la classe Enemy ici pour que la classe Player puisse en bénéficier !
  * Classe de base pour tous les éléments graphiques du jeu
  */
 public abstract class GraphicElement {

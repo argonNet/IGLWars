@@ -7,6 +7,7 @@ import ch.iglwars.Enemy.BigEnemy;
 import ch.iglwars.Enemy.Enemy;
 import ch.iglwars.Enemy.MediumEnemy;
 import ch.iglwars.Enemy.SmallEnemy;
+import ch.iglwars.Player.Player;
 
 /**
  * Classe qui représente le 1er niveau de jeu
@@ -16,6 +17,7 @@ public class Level1 extends Level {
     private static final  int FIRST_SALVE_COUNT = 5;
     private static final  int SECOND_SALVE_COUNT = 5;
 
+    private Player player;
     private SmallEnemy[] firstSalve;
     private MediumEnemy[] secondSalve;
     private BigEnemy[] thirdSalve;
@@ -47,6 +49,8 @@ public class Level1 extends Level {
         }
 
         nextEnemyToGo = 0;
+
+        player = new Player();
     }
 
     /**
@@ -74,6 +78,8 @@ public class Level1 extends Level {
         for (BigEnemy enemy : thirdSalve) {
             enemy.draw(batch);
         }
+
+        player.draw(batch);
 
     }
 

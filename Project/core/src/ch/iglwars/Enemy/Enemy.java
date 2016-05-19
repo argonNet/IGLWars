@@ -12,7 +12,7 @@ import ch.iglwars.GraphicElement;
 import ch.iglwars.TextureManager;
 
 /**
- * Classe de base pour tous les enemis
+ * Classe de base pour tous les ennemis
  */
 public abstract class Enemy extends GraphicElement {
 
@@ -28,11 +28,11 @@ public abstract class Enemy extends GraphicElement {
 
     private float rotation;
 
-    private boolean isRunning; //Définit si un enemi est en cours de déplacement
+    private boolean isRunning; //Définit si un ennemi est en cours de déplacement
 
     /**
      * Construction de l'objet de base
-     * @param x Position initiale de l'enemi sur l'axe des X
+     * @param x Position initiale de l'ennemi sur l'axe des X
      */
     public Enemy(float x){
         currentTexture = 0;
@@ -116,8 +116,8 @@ public abstract class Enemy extends GraphicElement {
     }
 
     /**
-     * Permet au enfant de définir la position de l'enemy. Cette méthode sera appelé avant de
-     * dessiner l'enemy.
+     * Permet au enfant de définir la position de l'ennemi. Cette méthode sera appelé avant de
+     * dessiner l'ennemi.
      */
     protected  abstract void setEnemyPositionInLoop();
 
@@ -129,7 +129,7 @@ public abstract class Enemy extends GraphicElement {
     }
 
     /**
-     * Dessin global de l'enemi
+     * Dessin global de l'ennemi
      */
     @Override
     public void draw(SpriteBatch batch) {
@@ -166,7 +166,7 @@ public abstract class Enemy extends GraphicElement {
                     texture.getWidth(),texture.getHeight(),
                     false,false);
 
-            //Stop l'enemi si il atteint la fin de l'écran
+            //Stop l'ennemi si il atteint la fin de l'écran
             if(this.getY() < -1 * height ){
                 isRunning = false;
             }
