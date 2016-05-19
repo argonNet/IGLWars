@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
  */
 public class SmallEnemy extends Enemy{
 
+    public static float WIDTH = 48;
+
     /**
      * Construction de l'objet de base
      *

@@ -9,7 +9,7 @@ import ch.iglwars.Constants;
  */
 public class MediumEnemy extends Enemy {
 
-    private static float WIDHT = 94;
+    public static float WIDTH = 94;
 
     public static String [] TEXTURES_NAME = {
             "enemy_medium_0.png",
@@ -47,7 +47,7 @@ public class MediumEnemy extends Enemy {
         this.setY(this.getY() - (200 * Gdx.graphics.getDeltaTime()));
 
         //Gestion du ZigZag
-        if(this.getX() > (Constants.GAME_WIDTH - WIDHT)){
+        if(this.getX() > (Constants.GAME_WIDTH - WIDTH)){
             direction = -1;
         }else if (this.getX() < 0) {
             direction = 1;
