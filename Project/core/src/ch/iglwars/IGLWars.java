@@ -25,6 +25,7 @@ public class IGLWars extends Game {
 	}
 
 	public void dispose() {
+        super.dispose();
 		batch.dispose();
 		font.dispose();
 	}

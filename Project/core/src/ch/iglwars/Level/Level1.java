@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.Random;
 
+import ch.iglwars.Constants;
 import ch.iglwars.Enemy.BigEnemy;
 import ch.iglwars.Enemy.Enemy;
 import ch.iglwars.Enemy.MediumEnemy;
@@ -16,9 +17,9 @@ import ch.iglwars.Player.Player;
  */
 public class Level1 extends Level {
 
-    private static final  int FIRST_SALVE_COUNT = 10;
-    private static final  int SECOND_SALVE_COUNT = 5;
-    private static final  int THIRD_SALVE_COUNT = 3;
+    private static final  int FIRST_SALVE_COUNT = 3;
+    private static final  int SECOND_SALVE_COUNT = 6;
+    private static final  int THIRD_SALVE_COUNT = 1;
 
     private Player player;
     private Salve firstSalve;
@@ -38,18 +39,19 @@ public class Level1 extends Level {
 
         firstSalve = new Salve();
         for(int i = 0; i <  FIRST_SALVE_COUNT; i++){
-            firstSalve.addEnemy(new SmallEnemy(rand.nextInt(480 - ((int) SmallEnemy.WIDTH))));
+            firstSalve.addEnemy(new SmallEnemy(rand.nextInt(Constants.GAME_WIDTH - ((int) BigEnemy.WIDTH)), Constants.GAME_HEIGHT));
         }
 
         secondSalve = new Salve();
         for(int i = 0; i <  SECOND_SALVE_COUNT; i++){
-            secondSalve.addEnemy(new MediumEnemy(rand.nextInt(480 - ((int) MediumEnemy.WIDTH))));
+            secondSalve.addEnemy(new MediumEnemy(0, Constants.GAME_HEIGHT));
         }
 
 
         thirdSalve = new Salve();
         for(int i = 0; i <  THIRD_SALVE_COUNT; i++){
-            thirdSalve.addEnemy(new BigEnemy(rand.nextInt(480 - ((int) BigEnemy.WIDTH))));
+            thirdSalve.addEnemy(new BigEnemy(rand.nextInt(Constants.GAME_WIDTH - ((int) BigEnemy.WIDTH)),
+                    rand.nextInt(Constants.GAME_HEIGHT - ((int) BigEnemy.HEIGHT) * 3) + BigEnemy.HEIGHT * 2));
         }
 
         nextEnemyToGo = 0;

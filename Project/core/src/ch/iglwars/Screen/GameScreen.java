@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import ch.iglwars.Constants;
 import ch.iglwars.IGLWars;
 import ch.iglwars.Level.Level1;
+import ch.iglwars.TextureManager;
 
 /**
  * Created by vitel on 19.05.16.

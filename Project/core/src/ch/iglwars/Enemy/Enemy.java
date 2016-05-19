@@ -34,18 +34,16 @@ public abstract class Enemy extends GraphicElement {
      * Construction de l'objet de base
      * @param x Position initiale de l'ennemi sur l'axe des X
      */
-    public Enemy(float x){
+    public Enemy(float x, Float y){
         currentTexture = 0;
         lastTextureSwitch = 0;
         incOrDec = false;
         isRunning = false;
 
         this.setX(x);
+        this.setY(y);
 
         setProperties();
-
-        //Tous les énemis arrive du haut de l'écran
-        this.setY(Constants.GAME_HEIGHT);
     }
 
     /**
