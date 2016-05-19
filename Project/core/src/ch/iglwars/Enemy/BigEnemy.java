@@ -3,6 +3,8 @@ package ch.iglwars.Enemy;
 import com.badlogic.gdx.Gdx;
 
 import ch.iglwars.Constants;
+import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
+import ch.iglwars.TexturesMode.TextureMode;
 
 /**
  * Created by Argon on 14.05.16.
@@ -33,14 +35,18 @@ public class BigEnemy extends Enemy{
      */
     protected void setProperties(){
         direction = 1;
-        setAnimatedTexture(5,TEXTURES_NAME);
         setHeight(80);
+    }
+
+    @Override
+    protected TextureMode createTextureMode() {
+        return new PassiveAnimatedTexture(5,TEXTURES_NAME);
     }
 
     /**
      * Gestion du déplacement de l'enemy
      */
-    protected void setEnemyPositionInLoop(){
+    protected void setPositionInLoop(){
         this.setY(this.getY() - (200 * Gdx.graphics.getDeltaTime()));
 
     }

@@ -3,6 +3,8 @@ package ch.iglwars.Enemy;
 import com.badlogic.gdx.Gdx;
 
 import ch.iglwars.Constants;
+import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
+import ch.iglwars.TexturesMode.TextureMode;
 
 /**
  * Classe pour les enemis de taille moyennes
@@ -36,14 +38,18 @@ public class MediumEnemy extends Enemy {
      */
     protected void setProperties(){
         direction = 1;
-        setAnimatedTexture(100,TEXTURES_NAME);
         setHeight(95);
+    }
+
+    @Override
+    protected TextureMode createTextureMode() {
+        return  new PassiveAnimatedTexture(100,TEXTURES_NAME);
     }
 
     /**
      * Gestion du déplacement de l'enemy
      */
-    protected void setEnemyPositionInLoop(){
+    protected void setPositionInLoop(){
         this.setY(this.getY() - (200 * Gdx.graphics.getDeltaTime()));
 
         //Gestion du ZigZag

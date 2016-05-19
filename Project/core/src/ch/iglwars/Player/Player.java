@@ -11,6 +11,7 @@ import java.io.Console;
 import ch.iglwars.Constants;
 import ch.iglwars.GraphicElement;
 import ch.iglwars.TextureManager;
+import ch.iglwars.TexturesMode.TextureMode;
 
 /**
  * TO-DO: Utiliser les variables et méthodes de Graphic Element une fois ce dernier mis à jour
@@ -24,6 +25,21 @@ public Player()
     Gdx.input.setInputProcessor(new GestureDetector(this));
     setTexture();
 }
+
+    @Override
+    protected TextureMode createTextureMode() {
+        return null;
+    }
+
+    @Override
+    protected void setPositionInLoop() {
+
+    }
+
+    @Override
+    protected void setProperties() {
+
+    }
 
     private Texture texture;
 
