@@ -17,6 +17,7 @@ public abstract class GraphicElement {
 
     private float rotation;
     private float height; //utilisée notamment pour calculer la hauteur de départ
+
     private boolean isRunning; //Définit si un élément est en cours de déplacement
 
     private TextureMode textureMode;
@@ -92,9 +93,9 @@ public abstract class GraphicElement {
     /**
      * Stop le *déplacement* de l'objet (calcul de position, dessin, etc)
      */
-    public void Stop(){
-        this.isRunning = false;
-    }
+    public void Stop(){this.isRunning = false;}
+
+    public boolean isRunning() {return isRunning;}
 
 
     protected float getRotation(){return this.rotation;}

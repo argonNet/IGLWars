@@ -16,9 +16,15 @@ public class SmallEnemy extends Enemy{
     private int direction = 1;
 
     /**
+     * Constructeur sans paramètre (pour la SalveFactory)
+     */
+    public SmallEnemy(){super();}
+
+    /**
      * Construction de l'objet de base
      *
      * @param x Position initiale de l'enemi sur l'axe des X
+     * @param y Position initiale de l'enemi sur l'axe des Y
      */
     public SmallEnemy(float x, float y) {
         super(x, y);

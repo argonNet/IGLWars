@@ -23,9 +23,15 @@ public class MediumEnemy extends Enemy {
     private float direction;
 
     /**
+     * Constructeur sans paramètre (pour la SalveFactory)
+     */
+    public MediumEnemy(){super();}
+
+    /**
      * Construction de l'objet de base
      *
      * @param x Position initiale de l'enemi sur l'axe des X
+     * @param y Position initiale de l'enemi sur l'axe des Y
      */
     public MediumEnemy(float x, float y) {
         super(x, y);

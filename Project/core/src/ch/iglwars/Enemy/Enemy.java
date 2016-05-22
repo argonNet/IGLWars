@@ -18,10 +18,18 @@ public abstract class Enemy extends GraphicElement {
 
 
     /**
+     * Constructeur par défaut, utilisé notament dans le cadre de la salve factory, se constructeur
+     * ne doit pas avoir de paramètre.
+     */
+    public Enemy(){
+        setProperties();
+    }
+
+    /**
      * Construction de l'objet de base
      * @param x Position initiale de l'ennemi sur l'axe des X
      */
-    public Enemy(float x, Float y){
+    public Enemy(float x, float y){
         this.setX(x);
         this.setY(y);
 

@@ -26,13 +26,20 @@ public class BigEnemy extends Enemy{
     private float direction;
 
     /**
+     * Constructeur sans paramètre (pour la SalveFactory)
+     */
+    public BigEnemy(){super();}
+
+    /**
      * Construction de l'objet de base
      *
      * @param x Position initiale de l'enemi sur l'axe des X
+     * @param y Position initiale de l'enemi sur l'axe des Y
      */
     public BigEnemy(float x, float y) {
         super(x, y);
     }
+
 
     /**
      * Définition des propriétés pour l'enemy
