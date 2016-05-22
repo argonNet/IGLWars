@@ -5,25 +5,42 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import java.io.Console;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import ch.iglwars.Constants;
+import ch.iglwars.Enemy.Enemy;
 import ch.iglwars.GraphicElement;
 import ch.iglwars.TextureManager;
 import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.Weapon.Weapon;
 
 /**
  * TO-DO: Utiliser les variables et méthodes de Graphic Element une fois ce dernier mis à jour
  * Created by Aoi on 17/05/2016.
  */
 public class Player extends GraphicElement implements GestureDetector.GestureListener {
+    private long lastGoTime;
+
+    //La fréquence à chaque  balle lancée
+   private static long BULLET_RATE = 300;
+    //Le nombre maximum qu'il puisse avoir de tirs de ce vaisseau
+    //Evite la surcharge de mémoire et d'avoir un écran bordélique
+    private static int MAX_BULLETS = 5;
+    //Liste des tirs lancés et actif du vaisseau
+    private Array<Weapon> bullets;
 
 public Player()
 {
     //Enregistre les événements de la détection des mouvements
     Gdx.input.setInputProcessor(new GestureDetector(this));
     setTexture();
+    bullets = new Array<Weapon>();
 }
 
     @Override
@@ -41,6 +58,36 @@ public Player()
 
     }
 
+    /***
+     * Gestion des tirs du vaisseau pendant le jeu
+     * @param batch
+     */
+    private void shootsBullet(SpriteBatch batch)
+    {
+        if (TimeUtils.millis() - lastGoTime > BULLET_RATE) {
+            if (bullets.size < MAX_BULLETS) {
+                //Place le tir just au-dessus du sprite du vaisseau
+                Weapon bullet = new Weapon(getX() + 56 / 2, getY() + 64 / 2);
+                bullets.add(bullet);
+            }
+            lastGoTime = TimeUtils.millis();
+        }
+        Iterator<Weapon> iter = bullets.iterator();
+
+        while(iter.hasNext()) {
+            Weapon bullet = iter.next();
+            bullet.draw(batch);
+            //Si le tir atteint le haut de l'écran, on l'enlève
+            if (bullet.getY() > (Constants.GAME_HEIGHT -15)) iter.remove();
+
+            //TODO: Mettre en place la gestion de collision si le tir a touché quelque chose
+           // if(bullet.isOverlaps()) {
+
+             //   iter.remove();
+            //}
+        }
+    }
+
     private Texture texture;
 
     public static String [] TEXTURES_NAME = {
@@ -56,12 +103,20 @@ public Player()
                 0,0,
                 texture.getWidth(),texture.getHeight(),
                 false,false);
+       shootsBullet(batch);
     }
 
 
 
     protected void setTexture(){
         texture =  TextureManager.getInstance().getTexture(TEXTURES_NAME[0]);
+    }
+
+    private void checkBulletCollision()
+    {
+        //Parcourir la liste des bullets que le vaisseau a lancé
+        //Vérifier si un d'eux a touché quelque chose
+        //-> bullet.isDestroyed()
     }
 
     /**
@@ -130,12 +185,12 @@ public Player()
     public boolean pan(float x, float y, float deltaX, float deltaY) {
 
        float rapportTailleX = (float)Constants.GAME_WIDTH  / Gdx.graphics.getWidth();
-        float newX = this.getX() + (deltaX * rapportTailleX);
+        float newX = this.getX() + (deltaX * rapportTailleX );
         if (newX < 0 ) newX = 0;
         else if (newX > (Constants.GAME_WIDTH -56)) newX = Constants.GAME_WIDTH -56;
 
         float rapportTailleY = (float)Constants.GAME_HEIGHT  / Gdx.graphics.getHeight();
-        float newY = this.getY() - (deltaY * rapportTailleY);
+        float newY = this.getY() - (deltaY * rapportTailleY );
         if (newY < 0 ) newY = 0;
         else if (newY > (Constants.GAME_HEIGHT -64)) newY = Constants.GAME_HEIGHT -64;
 
