@@ -19,12 +19,18 @@ import ch.iglwars.TexturesMode.TextureMode;
  */
 public class Player extends GraphicElement implements GestureDetector.GestureListener {
 
-public Player()
-{
-    //Enregistre les événements de la détection des mouvements
-    Gdx.input.setInputProcessor(new GestureDetector(this));
-    setTexture();
-}
+    //Instance unique de la classe
+    private static Player instance;
+
+    /**
+     * Constructeur privé pour la gestion du singleton
+     */
+    private Player()
+    {
+        //Enregistre les événements de la détection des mouvements
+        Gdx.input.setInputProcessor(new GestureDetector(this));
+        setTexture();
+    }
 
     @Override
     protected TextureMode createTextureMode() {
@@ -179,5 +185,17 @@ public Player()
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
         return false;
+    }
+
+
+    /**
+     * Accesseur pour le Singleton
+     * @return Instance unique de la classe joueur
+     */
+    public static Player getInstance(){
+        if(instance == null){
+            instance = new Player();
+        }
+        return  instance;
     }
 }

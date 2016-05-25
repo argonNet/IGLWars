@@ -17,8 +17,6 @@ public abstract class Level {
     private int currentRunningElementIndex;
     private long lastDelayStartTime;
 
-    private Player player;
-
     /**
      * Permet d'ajouter une salve
      */
@@ -40,7 +38,6 @@ public abstract class Level {
         currentRunningElementIndex = 0;
         lastDelayStartTime = Long.MAX_VALUE;
         LevelContent = new ArrayList<Object>();
-        player = new Player();
     }
 
     /**
@@ -78,7 +75,8 @@ public abstract class Level {
                 ((Salve)LevelContent.get(i)).Run(batch);
             }
         }
-        player.draw(batch);
+
+        Player.getInstance().draw(batch);
     }
 
 }

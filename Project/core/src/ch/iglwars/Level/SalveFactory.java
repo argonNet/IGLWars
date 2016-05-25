@@ -1,5 +1,6 @@
 package ch.iglwars.Level;
 
+
 import ch.iglwars.Constants;
 import ch.iglwars.Enemy.Enemy;
 
@@ -37,6 +38,32 @@ public class SalveFactory {
 
         return salve;
 
+    }
+
+    /**
+     * Crée une ligne d'ennemi.
+     * @param enemyClass type d'enemis a utiliser pour la salve
+     * @return La salve générée
+     */
+    public static Salve One4EnemiesLineSalve(Class enemyClass){
+        Salve salve = new Salve(0);
+
+        float firstPos = Constants.GAME_WIDTH / 5;
+        try {
+
+
+            for(int i = 0; i < 4;i++){
+                Enemy enemy = (Enemy)enemyClass.newInstance();
+                enemy.setX(firstPos * (i+1));
+                enemy.setY(Constants.GAME_HEIGHT);
+                salve.addEnemy(enemy);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return salve;
     }
 
 }
