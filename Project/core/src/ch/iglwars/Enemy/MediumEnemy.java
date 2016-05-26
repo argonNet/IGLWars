@@ -1,6 +1,7 @@
 package ch.iglwars.Enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Polygon;
 
 import ch.iglwars.Constants;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
@@ -25,7 +26,9 @@ public class MediumEnemy extends Enemy {
     /**
      * Constructeur sans paramètre (pour la SalveFactory)
      */
-    public MediumEnemy(){super();}
+    public MediumEnemy(){
+        super();
+    }
 
     /**
      * Construction de l'objet de base
@@ -78,6 +81,16 @@ public class MediumEnemy extends Enemy {
         this.setX(this.getX() + (direction * 200 * Gdx.graphics.getDeltaTime()));*/
 
 
+    }
+
+    @Override
+    public float getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public float getHeight() {
+        return HEIGHT;
     }
 
 }

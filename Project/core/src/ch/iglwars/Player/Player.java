@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 import java.io.Console;
@@ -18,6 +19,11 @@ import ch.iglwars.TexturesMode.TextureMode;
  * Created by Aoi on 17/05/2016.
  */
 public class Player extends GraphicElement implements GestureDetector.GestureListener {
+
+    private Texture texture;
+
+    public static String [] TEXTURES_NAME = {
+            "player_standing.png"};
 
 public Player()
 {
@@ -41,10 +47,6 @@ public Player()
 
     }
 
-    private Texture texture;
-
-    public static String [] TEXTURES_NAME = {
-            "player_standing.png"};
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(texture,
@@ -132,7 +134,7 @@ public Player()
        float rapportTailleX = (float)Constants.GAME_WIDTH  / Gdx.graphics.getWidth();
         float newX = this.getX() + (deltaX * rapportTailleX);
         if (newX < 0 ) newX = 0;
-        else if (newX > (Constants.GAME_WIDTH -56)) newX = Constants.GAME_WIDTH -56;
+        else if (newX > (Constants.GAME_WIDTH - texture.getWidth())) newX = Constants.GAME_WIDTH - texture.getWidth();
 
         float rapportTailleY = (float)Constants.GAME_HEIGHT  / Gdx.graphics.getHeight();
         float newY = this.getY() - (deltaY * rapportTailleY);
@@ -179,5 +181,13 @@ public Player()
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
         return false;
+    }
+
+    public float getHeight() {
+        return texture.getHeight();
+    }
+
+    public float getWidth() {
+        return texture.getWidth();
     }
 }
