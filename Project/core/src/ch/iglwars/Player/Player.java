@@ -25,12 +25,18 @@ public class Player extends GraphicElement implements GestureDetector.GestureLis
     public static String [] TEXTURES_NAME = {
             "player_standing.png"};
 
-public Player()
-{
-    //Enregistre les événements de la détection des mouvements
-    Gdx.input.setInputProcessor(new GestureDetector(this));
-    setTexture();
-}
+    //Instance unique de la classe
+    private static Player instance;
+
+    /**
+     * Constructeur privé pour la gestion du singleton
+     */
+    private Player()
+    {
+        //Enregistre les événements de la détection des mouvements
+        Gdx.input.setInputProcessor(new GestureDetector(this));
+        setTexture();
+    }
 
     @Override
     protected TextureMode createTextureMode() {
@@ -189,5 +195,16 @@ public Player()
 
     public float getWidth() {
         return texture.getWidth();
+    }
+
+    /**
+     * Accesseur pour le Singleton
+     * @return Instance unique de la classe joueur
+     */
+    public static Player getInstance(){
+        if(instance == null){
+            instance = new Player();
+        }
+        return  instance;
     }
 }
