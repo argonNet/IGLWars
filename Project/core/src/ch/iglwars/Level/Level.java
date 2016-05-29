@@ -17,8 +17,6 @@ public abstract class Level {
     private int currentRunningElementIndex;
     private long lastDelayStartTime;
 
-    private Player player;
-
     /**
      * Permet d'ajouter une salve
      */
@@ -40,8 +38,6 @@ public abstract class Level {
         currentRunningElementIndex = 0;
         lastDelayStartTime = Long.MAX_VALUE;
         LevelContent = new ArrayList<Object>();
-        player = new Player();
-        player.Start();
     }
 
     /**
@@ -77,9 +73,14 @@ public abstract class Level {
         for (int i = 0; i <= currentRunningElementIndex;i++){ //TODO : Optimiser la boucle pour n'afficher que le salve disponible à l'ecran
             if(LevelContent.get(i) instanceof Salve){
                 ((Salve)LevelContent.get(i)).Run(batch);
+                if (((Salve)LevelContent.get(i)).collides(player)) {
+                    // Collision !
+                    // TODO: faire le comportement voulu en cas de collision
+                }
             }
         }
-        player.draw(batch);
+
+        Player.getInstance().draw(batch);
     }
 
 }

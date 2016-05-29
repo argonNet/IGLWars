@@ -1,7 +1,7 @@
 package ch.iglwars;
 
 /**
- * Classe static qui contient toutes les constantes globales
+ * Classe static qui contient toutes les constantes globales.
  */
 public class Constants {
 

@@ -1,6 +1,7 @@
 package ch.iglwars.Enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Polygon;
 
 import ch.iglwars.Constants;
 import ch.iglwars.TexturesMode.StaticTexture;
@@ -31,7 +32,9 @@ public class SmallEnemy extends Enemy{
     /**
      * Constructeur sans paramètre (pour la SalveFactory)
      */
-    public SmallEnemy(){super();}
+    public SmallEnemy(){
+        super();
+    }
 
     /**
      * Construction de l'objet de base
@@ -61,9 +64,17 @@ public class SmallEnemy extends Enemy{
      * Gestion du déplacement de l'enemy de base
      */
     protected void setPositionInLoop(){
+        super.setPositionInLoop();
         this.setY(this.getY() - (60 * Gdx.graphics.getDeltaTime()));
     }
 
+    @Override
+    public float getWidth() {
+        return WIDTH;
+    }
 
-
+    @Override
+    public float getHeight() {
+        return HEIGHT;
+    }
 }

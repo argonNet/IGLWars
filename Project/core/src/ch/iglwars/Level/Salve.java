@@ -1,12 +1,16 @@
 package ch.iglwars.Level;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ch.iglwars.Enemy.Enemy;
+import ch.iglwars.Player.Player;
+import ch.iglwars.TextureManager;
 
 /**
  * Classe qui représente une salve d'enemi. Elle utilisée pour la construction des niveau
@@ -25,7 +29,7 @@ public class Salve {
     // Indique si la salve est terminée (tous les enemy = not IsRunning)
     private boolean ended = false;
 
-
+    private Texture testTexture;
 
     // Temps entre le lancement des ennemis au sein de la salve.
     private int delayBetweenEnemyInSalve;
@@ -39,6 +43,8 @@ public class Salve {
         this.setDelayBetweenEnemyInSalve(delayBetweenEnemyInSalve);
         this.lastEnemyStartTime = 0;
         this.enemyToStartIndex = 0;
+
+        testTexture = TextureManager.getInstance().getTexture("test.png");
     }
 
     public void addEnemy(Enemy enemy) {
@@ -100,6 +106,23 @@ public class Salve {
 
     public void setDelayBetweenEnemyInSalve(int delayBetweenEnemyInSalve) {
         this.delayBetweenEnemyInSalve = delayBetweenEnemyInSalve;
+    }
+
+    public boolean collides(Player player) {
+        boolean collides = false;
+        float playerMinX = player.getX();
+        float playerMaxX = playerMinX + player.getWidth();
+        float playerMinY = player.getY();
+        float playerMaxY = playerMinY + player.getHeight();
+
+        for (Enemy enemy : enemies) {
+            if (enemy.getX() < playerMaxX && enemy.getY() < playerMaxY &&
+                    (enemy.getX() + enemy.getWidth()) > playerMinX && (enemy.getY() + enemy.getHeight()) > playerMinY) {
+                collides = true;
+            }
+        }
+
+        return collides;
     }
 
 }

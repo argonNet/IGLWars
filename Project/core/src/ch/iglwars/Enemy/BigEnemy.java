@@ -1,6 +1,7 @@
 package ch.iglwars.Enemy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Polygon;
 
 import ch.iglwars.Constants;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
@@ -28,7 +29,9 @@ public class BigEnemy extends Enemy{
     /**
      * Constructeur sans paramètre (pour la SalveFactory)
      */
-    public BigEnemy(){super();}
+    public BigEnemy(){
+        super();
+    }
 
     /**
      * Construction de l'objet de base
@@ -73,5 +76,15 @@ public class BigEnemy extends Enemy{
 
         //Rotation sur lui-même
         this.incRotation(2);
+    }
+
+    @Override
+    public float getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public float getHeight() {
+        return HEIGHT;
     }
 }
