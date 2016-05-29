@@ -9,12 +9,13 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import ch.iglwars.Constants;
 import ch.iglwars.GraphicElement;
+import ch.iglwars.Ship;
 import ch.iglwars.TextureManager;
 
 /**
  * Classe de base pour tous les ennemis
  */
-public abstract class Enemy extends GraphicElement {
+public abstract class Enemy extends Ship {
 
 
     /**

@@ -2,8 +2,11 @@ package ch.iglwars.Enemy;
 
 import com.badlogic.gdx.Gdx;
 
+import ch.iglwars.Constants;
 import ch.iglwars.TexturesMode.StaticTexture;
 import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.Weapon.Ammo.Bullet;
+import ch.iglwars.Weapon.SingleShoot;
 
 
 /**
@@ -14,6 +17,16 @@ public class SmallEnemy extends Enemy{
     public static float WIDTH = 31;
     public static float HEIGHT = 48;
     private int direction = 1;
+
+    //Textures par défaut pour les tirs du joueur
+    private static String[] TEXTURES_BULLET =
+            {
+                    "bullet_enemy_0.png", "bullet_enemy_1.png"
+            };
+    //Fréquence de tir par défaut
+    private static int BULLET_RATE = 200;
+    //Nombre max de tirs à l'écran par  défaur
+    private static int BULLET_MAX = 3;
 
     /**
      * Constructeur sans paramètre (pour la SalveFactory)
@@ -35,6 +48,8 @@ public class SmallEnemy extends Enemy{
      */
     protected void setProperties(){
         setHeight(HEIGHT);
+        //Arme de base du vaisseau joueur
+        addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
     }
 
     @Override
