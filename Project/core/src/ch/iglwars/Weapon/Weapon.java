@@ -1,91 +1,110 @@
 package ch.iglwars.Weapon;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.utils.Array;
 
-import ch.iglwars.GraphicElement;
-import ch.iglwars.Player.Player;
 import ch.iglwars.Ship;
-import ch.iglwars.TextureManager;
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.Weapon.Ammo.Ammo;
 
 /**
- * Created by Aoi on 19/05/2016.
- * Réprésente les balles par défaut tirées par le joueur et la majorité des ennemis
+ * Classe de base représentant une arme que peut avoir un vaisseau
  */
-public class Weapon extends GraphicElement {
+public abstract class Weapon {
+    //La fréquence à chaque  tir lancée
+    private int ammoRate;
+    //Le nombre maximum qu'il puisse avoir de tirs de ce vaisseau
+    //Evite la surcharge de mémoire et d'avoir un écran brouillon
+    private int ammoMax;
+    //Direction du tir  (Vers le haut ou vers le bas)
+    private int directionTir;
+    //Textures des munitions
+    private String[] textures;
+    //Vaisseau qui possède cette arme
+    private Ship owner;
+    //Liste des tirs lancés et actif du vaisseau
+    private Array<Ammo> ammosList;
 
-    //Représente le nombre de dégât que va faire l'arme
-    //Par défaut, il fait 1hp
-    private int damage;
-    //Vitesse du tir
-    private int speed;
+    //Temps depuis la dernière munition tirée
+    private long lastAmmoTime;
+    //Le type (Classe) de la munition
+    private Class ammoClass;
 
-    public Weapon(float x, float y)
-    {
-        damage = 1;
-        speed = 600;
-        this.setX(x);
-        this.setY(y);
-        setTexture();
-    }
-
-private Texture texture;
-
-    public static String [] TEXTURES_NAME = {
-            "player_bullet.png"};
-
-    protected void setTexture(){
-        texture =  TextureManager.getInstance().getTexture(TEXTURES_NAME[0]);
+    /**
+     * Constructeur de base
+     */
+    public Weapon() {
+        ammosList = new Array<Ammo>();
     }
 
     /**
-     * Crée l'objet qui permet de gérer le mode de texture
+     * Dessine les tirs de l'arme
      *
-     * @return Objet descendant de TextureMode
+     * @param batch Element de LibGDX qui gère le rendu
      */
-    @Override
-    protected TextureMode createTextureMode() {
-        return null;
+    public abstract void shoot(SpriteBatch batch);
+
+
+    protected int getAmmoRate() {
+        return ammoRate;
     }
 
-    /**
-     * Définit la trajectoire de l'arme
-     */
-    @Override
-    protected void setPositionInLoop() {
-        this.setY(this.getY() + (speed * Gdx.graphics.getDeltaTime()));
+    protected int getAmmoMax() {
+        return ammoMax;
     }
 
-    /**
-     * Méthode qui permet de définir les propriétés des enfants
-     */
-    @Override
-    protected void setProperties() {
-
+    protected int getDirectionTir() {
+        return directionTir;
     }
 
-    public void draw(SpriteBatch batch) {
-        setPositionInLoop();
-        batch.draw(texture,
-                this.getX(), this.getY(),
-                texture.getWidth() / 2,texture.getHeight() / 2,
-                texture.getWidth(),texture.getHeight(),
-                1,1,
-                0,
-                0,0,
-                texture.getWidth(),texture.getHeight(),
-                false,false);
+    protected String[] getTextures() {
+        return textures;
     }
 
-    //Vérifie s'il a touché un objet
-    public boolean isOverlaps()
-    {
-        return false;
+    protected Ship getOwner() {
+        return owner;
     }
 
+    protected Array<Ammo> getAmmosList() {
+        return ammosList;
+    }
 
+    protected long getLastAmmoTime() {
+        return lastAmmoTime;
+    }
 
+    protected Class getAmmoClass() {
+        return ammoClass;
+    }
+
+    public void setAmmoRate(int ammoRate) {
+        this.ammoRate = ammoRate;
+    }
+
+    public void setAmmoMax(int ammoMax) {
+        this.ammoMax = ammoMax;
+    }
+
+    public void setDirectionTir(int directionTir) {
+        this.directionTir = directionTir;
+    }
+
+    public void setTextures(String[] textures) {
+        this.textures = textures;
+    }
+
+    public void setOwner(Ship owner) {
+        this.owner = owner;
+    }
+
+    public void setAmmosList(Array<Ammo> ammosList) {
+        this.ammosList = ammosList;
+    }
+
+    public void setLastAmmoTime(long lastAmmoTime) {
+        this.lastAmmoTime = lastAmmoTime;
+    }
+
+    public void setAmmoClass(Class ammoClass) {
+        this.ammoClass = ammoClass;
+    }
 }

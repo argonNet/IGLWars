@@ -41,6 +41,7 @@ public abstract class Level {
         lastDelayStartTime = Long.MAX_VALUE;
         LevelContent = new ArrayList<Object>();
         player = new Player();
+        player.Start();
     }
 
     /**

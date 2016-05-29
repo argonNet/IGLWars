@@ -2,7 +2,6 @@ package ch.iglwars;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
 
 import ch.iglwars.TexturesMode.TextureMode;
 
@@ -17,6 +16,7 @@ public abstract class GraphicElement {
 
     private float rotation;
     private float height; //utilisée notamment pour calculer la hauteur de départ
+    private float width;
 
     private boolean isRunning; //Définit si un élément est en cours de déplacement
 
@@ -26,8 +26,8 @@ public abstract class GraphicElement {
      * Création des éléments graphiques
      */
     public GraphicElement(){
-        isRunning = false;
-        textureMode = createTextureMode();
+        isRunning=false;
+        setTextureMode(createTextureMode());
         setProperties();
     }
 
@@ -38,8 +38,8 @@ public abstract class GraphicElement {
     protected abstract TextureMode createTextureMode();
 
     /**
-     * Permet au enfant de définir leur position dans la loop graphique avant de dessiner l'enemi.
-     * Il s'agit de définir "l'intelligence" de déplacement automatique des ennemis.
+     * Permet au enfant de définir leur position dans la loop graphique avant de dessiner l'élément.
+     * Il s'agit de définir "l'intelligence" de déplacement automatique de certains éléments graphiques.
      */
     protected abstract void setPositionInLoop();
 
@@ -86,27 +86,34 @@ public abstract class GraphicElement {
     /**
      * Démarre le *déplacement* de l'objet (calcul de position, dessin, etc)
      */
-    public void Start(){
-        this.isRunning = true;
+    public void Start() { isRunning = true;
     }
 
     /**
      * Stop le *déplacement* de l'objet (calcul de position, dessin, etc)
      */
-    public void Stop(){this.isRunning = false;}
+    public void Stop(){
+        isRunning = false;}
 
-    public boolean isRunning() {return isRunning;}
+    protected boolean isRunning() {return isRunning;}
 
 
     protected float getRotation(){return this.rotation;}
     protected void setRotation(float rotationAngle){this.rotation = rotationAngle;}
 
-    protected void setHeight(float height){this.height = height;}
-    protected float getHeight(){ return this.height;}
+    public void setHeight(float height){this.height = height;}
+    public float getHeight(){ return this.height;}
+
+    public void setWidth(float width){this.width = width;}
+    public float getWidth(){ return this.width;}
 
     public float getX() {return x;}
     public void setX(float x) {this.x = x;}
 
     public float getY() {return y;}
     public void setY(float y) {this.y = y;}
+
+    public void setTextureMode(TextureMode textureMode) {
+        this.textureMode = textureMode;
+    }
 }

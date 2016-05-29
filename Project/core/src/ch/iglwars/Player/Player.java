@@ -1,128 +1,85 @@
 package ch.iglwars.Player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
-
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import ch.iglwars.Constants;
-import ch.iglwars.Enemy.Enemy;
-import ch.iglwars.GraphicElement;
-import ch.iglwars.TextureManager;
+import ch.iglwars.Ship;
+import ch.iglwars.TexturesMode.StaticTexture;
 import ch.iglwars.TexturesMode.TextureMode;
-import ch.iglwars.Weapon.Weapon;
+import ch.iglwars.Weapon.Ammo.Bullet;
+import ch.iglwars.Weapon.SingleShoot;
 
 /**
- * TO-DO: Utiliser les variables et méthodes de Graphic Element une fois ce dernier mis à jour
- * Created by Aoi on 17/05/2016.
+ * Classe représentant le vaisseau du joueur
  */
-public class Player extends GraphicElement implements GestureDetector.GestureListener {
-    private long lastGoTime;
+public class Player extends Ship implements GestureDetector.GestureListener {
 
-    //La fréquence à chaque  balle lancée
-   private static long BULLET_RATE = 300;
-    //Le nombre maximum qu'il puisse avoir de tirs de ce vaisseau
-    //Evite la surcharge de mémoire et d'avoir un écran bordélique
-    private static int MAX_BULLETS = 5;
-    //Liste des tirs lancés et actif du vaisseau
-    private Array<Weapon> bullets;
+    //Textures du vaisseau
+    private static String[] TEXTURES_NAME = {
+            "player_standing.png"};
+    //Largeur du vaisseau
+    private static float WIDTH = 56;
+    //Hauteur du vaisseau
+    private static float HEIGHT = 64;
 
-public Player()
-{
-    //Enregistre les événements de la détection des mouvements
-    Gdx.input.setInputProcessor(new GestureDetector(this));
-    setTexture();
-    bullets = new Array<Weapon>();
-}
+    //Textures par défaut pour les tirs du joueur
+    private static String[] TEXTURES_BULLET =
+            {
+                    "bullet_player_0.png", "bullet_player_1.png"
+            };
+    //Fréquence de tir par défaut
+    private static int BULLET_RATE = 300;
+    //Nombre max de tirs à l'écran par  défaur
+    private static int BULLET_MAX = 5;
 
-    @Override
-    protected TextureMode createTextureMode() {
-        return null;
+    /**
+     * Constructeur de base
+     */
+    public Player() {
+
+        //Enregistre les événements de la détection des mouvements
+        Gdx.input.setInputProcessor(new GestureDetector(this));
     }
 
+    /**
+     * Crée l'objet qui permet de gérer le mode de texture
+     * TODO: Faire une texture passive animation
+     *
+     * @return Objet descendant de TextureMode
+     */
+    @Override
+    protected TextureMode createTextureMode() {
+        return new StaticTexture("player_standing.png");
+    }
+
+    /**
+     * Permet au enfant de définir leur position dans la loop graphique avant de dessiner l'élément.
+     * Inutile au niveau du joueur car le déplacement n'est pas automatique !
+     */
     @Override
     protected void setPositionInLoop() {
 
     }
 
+    /**
+     * Méthode qui permet de définir les propriétés des enfants
+     */
     @Override
     protected void setProperties() {
-
+        setWidth(WIDTH);
+        setHeight(HEIGHT);
+        //Arme de base du vaisseau joueur
+        addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.HAUT, Bullet.class);
     }
 
-    /***
-     * Gestion des tirs du vaisseau pendant le jeu
-     * @param batch
-     */
-    private void shootsBullet(SpriteBatch batch)
-    {
-        if (TimeUtils.millis() - lastGoTime > BULLET_RATE) {
-            if (bullets.size < MAX_BULLETS) {
-                //Place le tir just au-dessus du sprite du vaisseau
-                Weapon bullet = new Weapon(getX() + 56 / 2, getY() + 64 / 2);
-                bullets.add(bullet);
-            }
-            lastGoTime = TimeUtils.millis();
-        }
-        Iterator<Weapon> iter = bullets.iterator();
-
-        while(iter.hasNext()) {
-            Weapon bullet = iter.next();
-            bullet.draw(batch);
-            //Si le tir atteint le haut de l'écran, on l'enlève
-            if (bullet.getY() > (Constants.GAME_HEIGHT -15)) iter.remove();
-
-            //TODO: Mettre en place la gestion de collision si le tir a touché quelque chose
-           // if(bullet.isOverlaps()) {
-
-             //   iter.remove();
-            //}
-        }
-    }
-
-    private Texture texture;
-
-    public static String [] TEXTURES_NAME = {
-            "player_standing.png"};
-    @Override
-    public void draw(SpriteBatch batch) {
-        batch.draw(texture,
-                this.getX(), this.getY(),
-                texture.getWidth() / 2,texture.getHeight() / 2,
-                texture.getWidth(),texture.getHeight(),
-                1,1,
-                0,
-                0,0,
-                texture.getWidth(),texture.getHeight(),
-                false,false);
-       shootsBullet(batch);
-    }
-
-
-
-    protected void setTexture(){
-        texture =  TextureManager.getInstance().getTexture(TEXTURES_NAME[0]);
-    }
-
-    private void checkBulletCollision()
-    {
-        //Parcourir la liste des bullets que le vaisseau a lancé
-        //Vérifier si un d'eux a touché quelque chose
-        //-> bullet.isDestroyed()
-    }
 
     /**
      * Méthode appelée quand on touche l'écran
-     * @param x coordonnées x du doigt
-     * @param y coordonnées y du doigt
+     *
+     * @param x       coordonnées x du doigt
+     * @param y       coordonnées y du doigt
      * @param pointer
      * @param button
      */
@@ -136,8 +93,8 @@ public Player()
      * count: Nombre de fois où l'écran a été tapoté à ces coordonnées
      * (On peut définir une intervalle de temps entre les tapotements dans le 2ème constructeur de GestureDetector)
      *
-     * @param x coordonnées x du doigt
-     * @param y coordonnées y du doigt
+     * @param x      coordonnées x du doigt
+     * @param y      coordonnées y du doigt
      * @param count  Nombre de tapotement
      * @param button
      */
@@ -148,6 +105,7 @@ public Player()
 
     /***
      * Méthode appelée quand on maintient le doigt pendant longtemps sur l'écran
+     *
      * @param x coordonnées x du doigt
      * @param y coordonnées y du doigt
      * @return
@@ -173,26 +131,29 @@ public Player()
 
     /**
      * pan = Faire un panoramique
-     *Méthode appelée quand le joueur glisse un doigt sur l'écran
-     *Calcule des nouvelles coordonnées de la bucket en se basant uniquement
-     *sur la distance parcourue par le doigt entre la position précédente et celle actuelle
-     * @param x coordonnées x du doigt
-     * @param y coordonnées y du doigt
+     * Méthode appelée quand le joueur glisse un doigt sur l'écran
+     * Calcule des nouvelles coordonnées de la bucket en se basant uniquement
+     * sur la distance parcourue par le doigt entre la position précédente et celle actuelle
+     *
+     * @param x      coordonnées x du doigt
+     * @param y      coordonnées y du doigt
      * @param deltaX Différence x entre la position actuelle et l'ancienne
      * @param deltaY Différence y entre la position actuelle et l'ancienne
      */
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
 
-       float rapportTailleX = (float)Constants.GAME_WIDTH  / Gdx.graphics.getWidth();
-        float newX = this.getX() + (deltaX * rapportTailleX );
-        if (newX < 0 ) newX = 0;
-        else if (newX > (Constants.GAME_WIDTH -56)) newX = Constants.GAME_WIDTH -56;
+        float rapportTailleX = (float) Constants.GAME_WIDTH / Gdx.graphics.getWidth();
+        float newX = this.getX() + (deltaX * rapportTailleX);
+        if (newX < 0) newX = 0;
+        else if (newX > (Constants.GAME_WIDTH - getWidth()))
+            newX = Constants.GAME_WIDTH - getWidth();
 
-        float rapportTailleY = (float)Constants.GAME_HEIGHT  / Gdx.graphics.getHeight();
-        float newY = this.getY() - (deltaY * rapportTailleY );
-        if (newY < 0 ) newY = 0;
-        else if (newY > (Constants.GAME_HEIGHT -64)) newY = Constants.GAME_HEIGHT -64;
+        float rapportTailleY = (float) Constants.GAME_HEIGHT / Gdx.graphics.getHeight();
+        float newY = this.getY() - (deltaY * rapportTailleY);
+        if (newY < 0) newY = 0;
+        else if (newY > (Constants.GAME_HEIGHT - getHeight()))
+            newY = Constants.GAME_HEIGHT - getHeight();
 
         this.setX(newX);
         this.setY(newY);
@@ -201,8 +162,9 @@ public Player()
 
     /**
      * Méthode appelée dès que le joueur enlève son doigt sur l'écran
-     * @param x Coordonnées x de l'endroit où le doigt s'est arrété
-     * @param y Coordonnées y de l'endroit où le doigt s'est arrété
+     *
+     * @param x       Coordonnées x de l'endroit où le doigt s'est arrété
+     * @param y       Coordonnées y de l'endroit où le doigt s'est arrété
      * @param pointer
      * @param button
      */
@@ -228,8 +190,8 @@ public Player()
      *
      * @param initialPointer1 Vecteur n°1 à 2 coordonnées de la position précédente
      * @param initialPointer2 Vecteur n°2 à 2 coordonnées de la position précédente
-     * @param pointer1 Vecteur n°1 à 2 coordonnées de la position actuelle
-     * @param pointer2 Vecteur n°1 à 2 coordonnées de la position actuelle
+     * @param pointer1        Vecteur n°1 à 2 coordonnées de la position actuelle
+     * @param pointer2        Vecteur n°1 à 2 coordonnées de la position actuelle
      */
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
