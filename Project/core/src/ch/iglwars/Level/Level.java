@@ -73,13 +73,12 @@ public abstract class Level {
         for (int i = 0; i <= currentRunningElementIndex;i++){ //TODO : Optimiser la boucle pour n'afficher que le salve disponible à l'ecran
             if(LevelContent.get(i) instanceof Salve){
                 ((Salve)LevelContent.get(i)).Run(batch);
-                if (((Salve)LevelContent.get(i)).collides(player)) {
+               // if (((Salve)LevelContent.get(i)).collides(player)) {
                     // Collision !
                     // TODO: faire le comportement voulu en cas de collision
-                }
+               // }
             }
         }
-
         Player.getInstance().draw(batch);
     }
 

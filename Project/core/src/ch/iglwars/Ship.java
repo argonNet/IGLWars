@@ -87,8 +87,10 @@ public abstract class Ship extends GraphicElement {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        for (Weapon weapon : weaponsList) {
-            weapon.shoot(batch);
+        if (weaponsList != null && !weaponsList.isEmpty()) {
+            for (Weapon weapon : weaponsList) {
+                weapon.shoot(batch);
+            }
         }
     }
 

@@ -44,7 +44,7 @@ public class Salve {
         this.lastEnemyStartTime = 0;
         this.enemyToStartIndex = 0;
 
-        testTexture = TextureManager.getInstance().getTexture("test.png");
+       // testTexture = TextureManager.getInstance().getTexture("test.png");
     }
 
     public void addEnemy(Enemy enemy) {

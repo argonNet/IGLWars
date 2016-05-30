@@ -25,9 +25,9 @@ public class SmallEnemy extends Enemy{
                     "bullet_enemy_0.png", "bullet_enemy_1.png"
             };
     //Fréquence de tir par défaut
-    private static int BULLET_RATE = 200;
+    private static int BULLET_RATE = 1000;
     //Nombre max de tirs à l'écran par  défaur
-    private static int BULLET_MAX = 3;
+    private static int BULLET_MAX = 1;
 
     /**
      * Constructeur sans paramètre (pour la SalveFactory)
