@@ -44,7 +44,7 @@ public class MediumEnemy extends Enemy {
      * Définition des propriétés pour l'enemy
      */
     protected void setProperties(){
-        direction = 1;
+        direction = DROITE;
         setHeight(HEIGHT);
     }
 
@@ -63,9 +63,9 @@ public class MediumEnemy extends Enemy {
 
         //Gestion du ZigZag
         if(this.getX() > (Constants.GAME_WIDTH - WIDTH)){
-            direction = -1;
+            direction = GAUCHE;
         }else if (this.getX() < WIDTH) {
-            direction = 1;
+            direction = DROITE;
         }
 
         this.setX(this.getX() + (direction * 200 * Gdx.graphics.getDeltaTime()));
