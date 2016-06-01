@@ -2,7 +2,7 @@ package ch.iglwars.Enemy;
 
 import com.badlogic.gdx.Gdx;
 
-import ch.iglwars.Constants;
+import ch.iglwars.Utils.Constants;
 import ch.iglwars.Player.Player;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
 import ch.iglwars.TexturesMode.TextureMode;
