@@ -97,6 +97,30 @@ public class SalveFactory {
         return salve;
     }
 
+    /**
+     * Création d'une salve d'un enemi.
+     * @param enemyClass Type d'enemi à mettre dans la salve
+     * @param posX Position X de l'enemi
+     * @return Salve générée
+     */
+    public static Salve oneEnemiSalve(Class enemyClass, float posX){
+        Salve salve = new Salve(0);
+
+        float forbidden = Player.getInstance().getHeight() * 2;
+
+        try {
+
+            Enemy enemy = (Enemy)enemyClass.newInstance();
+            enemy.setX(posX);
+            enemy.setY(Constants.GAME_HEIGHT);
+            salve.addEnemy(enemy);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return salve;
+    }
 
 
 

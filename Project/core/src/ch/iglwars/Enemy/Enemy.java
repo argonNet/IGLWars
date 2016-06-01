@@ -18,6 +18,9 @@ import ch.iglwars.TextureManager;
  */
 public abstract class Enemy extends Ship {
 
+    protected static int GAUCHE = -1;
+    protected static int DROITE = 1;
+
 
     /**
      * Constructeur par défaut, utilisé notament dans le cadre de la salve factory, se constructeur

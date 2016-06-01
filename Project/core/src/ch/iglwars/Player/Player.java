@@ -34,6 +34,10 @@ public class Player extends Ship implements GestureDetector.GestureListener {
     //Nombre max de tirs à l'écran par  défaur
     private static int BULLET_MAX = 5;
 
+    //Instance unique de la classe
+    private static Player instance;
+
+
     /**
      * Constructeur de base
      */
@@ -71,7 +75,7 @@ public class Player extends Ship implements GestureDetector.GestureListener {
         setWidth(WIDTH);
         setHeight(HEIGHT);
         //Arme de base du vaisseau joueur
-        addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.HAUT, Bullet.class);
+        addWeapon(SingleShoot.class, TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.HAUT, Bullet.class);
     }
 
 
@@ -197,4 +201,18 @@ public class Player extends Ship implements GestureDetector.GestureListener {
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
         return false;
     }
+
+    /**
+     * Accesseur pour le Singleton
+     *
+     * @return Instance unique de la classe joueur
+     */
+    public static Player getInstance() {
+        if (instance == null) {
+            instance = new Player();
+            instance.Start();
+        }
+        return instance;
+    }
+
 }

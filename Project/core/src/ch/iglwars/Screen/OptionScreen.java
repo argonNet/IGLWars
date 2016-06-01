@@ -20,10 +20,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import ch.iglwars.*;
 
 /**
- * Created by vitel on 19.05.16.
- * Changed by Esiskadi on 26.05.16
+ * Created by Esiskadi on 26.05.16.
  */
-public class MainMenuScreen implements Screen {
+public class OptionScreen implements Screen {
 
     final IGLWars game;
     private Viewport viewport;
@@ -35,7 +34,7 @@ public class MainMenuScreen implements Screen {
     SpriteBatch batch;
     private TextButton.TextButtonStyle textButtonStyle;
 
-    public MainMenuScreen(final IGLWars game) {
+    public OptionScreen(final IGLWars game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -44,9 +43,7 @@ public class MainMenuScreen implements Screen {
 
         //Bouton
         createSkinButton();
-        createNewGameButton();
-        createOptionButton();
-        createScoreButton();
+        createReturnButton();
     }
 
     @Override
@@ -59,16 +56,15 @@ public class MainMenuScreen implements Screen {
 
         game.getBatch().begin();
         //titre
-        game.getFont().draw(game.getBatch(), "IGLWars",
-                Gdx.graphics.getHeight() / 6, Gdx.graphics.getHeight() / 6);
-
-        game.getBatch().end();
+        game.getFont().draw(game.getBatch(), "Option",
+                Gdx.graphics.getHeight() / 6, Gdx.graphics.getHeight() / 8);
 
         //bouton
         stage.act(Math.min(Gdx.graphics.getDeltaTime(),1/30f));
         stage.draw();
-        //Table.drawDebug(stage); changé par
         stage.setDebugAll(true);
+
+        game.getBatch().end();
     }
 
     @Override
@@ -108,7 +104,7 @@ public class MainMenuScreen implements Screen {
         skin = new Skin();
 
         Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
+        pixmap.setColor(Color.BLUE);
         pixmap.fill();
 
         skin.add("white", new Texture(pixmap));
@@ -129,44 +125,15 @@ public class MainMenuScreen implements Screen {
         skin.add("default", textButtonStyle);
     }
 
-    public void createNewGameButton(){
-        // Bouton new Game
-        final TextButton newGameButton = new TextButton("New Game", textButtonStyle);
-        newGameButton.setPosition(Gdx.graphics.getWidth() / 2 - (newGameButton.getWidth() / 2),
-                Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 8);
-        stage.addActor(newGameButton);
+    public void createReturnButton(){
+        final TextButton returnButton=new TextButton("Retour",textButtonStyle);
+        returnButton.setPosition(Gdx.graphics.getWidth()/2 - (returnButton.getWidth()/2),
+                Gdx.graphics.getHeight()/2 - Gdx.graphics.getHeight()/4);
+        stage.addActor(returnButton);
 
-        newGameButton.addListener(new ChangeListener() {
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
-            }
-        });
-    }
-
-    public void createOptionButton(){
-        final TextButton optionButton=new TextButton("Options",textButtonStyle);
-        optionButton.setPosition(Gdx.graphics.getWidth()/2 - optionButton.getWidth()/2,
-                Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 3);
-
-        stage.addActor(optionButton);
-
-        optionButton.addListener(new ChangeListener() {
+        returnButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                game.setScreen(new OptionScreen(game));
-            }
-        });
-    }
-
-    public void createScoreButton(){
-        final TextButton scoreButton=new TextButton("Score",textButtonStyle);
-        scoreButton.setPosition(Gdx.graphics.getWidth()/2 - scoreButton.getWidth()/2,
-                Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 4);
-
-        stage.addActor(scoreButton);
-
-        scoreButton.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
-                game.setScreen(new ScoreScreen(game));
+                game.setScreen(new MainMenuScreen(game));
             }
         });
     }
