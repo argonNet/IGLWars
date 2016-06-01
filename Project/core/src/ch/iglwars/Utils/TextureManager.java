@@ -1,4 +1,4 @@
-package ch.iglwars;
+package ch.iglwars.Utils;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;

@@ -1,4 +1,4 @@
-package ch.iglwars;
+package ch.iglwars.Utils;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -93,7 +93,11 @@ public abstract class GraphicElement {
      * Stop le *déplacement* de l'objet (calcul de position, dessin, etc)
      */
     public void Stop(){
-        isRunning = false;}
+        isRunning = false;
+        // Déplace les oubjets pour ne pas reproduire de collisions
+        setY(0);
+        setX(Constants.GAME_WIDTH);
+    }
 
     protected boolean isRunning() {return isRunning;}
 

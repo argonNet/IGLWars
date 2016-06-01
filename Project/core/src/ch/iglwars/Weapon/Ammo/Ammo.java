@@ -2,8 +2,8 @@ package ch.iglwars.Weapon.Ammo;
 
 import com.badlogic.gdx.Gdx;
 
-import ch.iglwars.Constants;
-import ch.iglwars.GraphicElement;
+import ch.iglwars.Utils.Constants;
+import ch.iglwars.Utils.GraphicElement;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
 import ch.iglwars.TexturesMode.TextureMode;
 

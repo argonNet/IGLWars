@@ -12,7 +12,7 @@ import ch.iglwars.Weapon.Weapon;
  * Classe de base représantant les vaisseaux du jeu
  * Un vaisseau est un élément graphique ayant la possibilité d'utiliser une arme
  */
-public abstract class Ship extends GraphicElement {
+public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
 
     //Liste d'arme que possède le vaisseau
     //TODO: En faire une liste ou un seul objet ?

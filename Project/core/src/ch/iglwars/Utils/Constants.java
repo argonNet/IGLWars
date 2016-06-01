@@ -1,4 +1,4 @@
-package ch.iglwars;
+package ch.iglwars.Utils;
 
 /**
  * Classe static qui contient toutes les constantes globales.

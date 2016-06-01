@@ -2,8 +2,8 @@ package ch.iglwars.TexturesMode;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import ch.iglwars.GraphicElement;
-import ch.iglwars.TextureManager;
+import ch.iglwars.Utils.GraphicElement;
+import ch.iglwars.Utils.TextureManager;
 
 /**
  * Représente une simple texture static

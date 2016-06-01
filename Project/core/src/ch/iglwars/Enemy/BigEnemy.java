@@ -1,9 +1,8 @@
 package ch.iglwars.Enemy;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Polygon;
 
-import ch.iglwars.Constants;
+import ch.iglwars.Utils.Constants;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
 import ch.iglwars.TexturesMode.TextureMode;
 

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
-import ch.iglwars.Constants;
+import ch.iglwars.Utils.Constants;
 import ch.iglwars.Ship;
 import ch.iglwars.TexturesMode.StaticTexture;
 import ch.iglwars.TexturesMode.TextureMode;
@@ -146,21 +146,22 @@ public class Player extends Ship implements GestureDetector.GestureListener {
      */
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
+        if (isRunning()) {
+            float rapportTailleX = (float) Constants.GAME_WIDTH / Gdx.graphics.getWidth();
+            float newX = this.getX() + (deltaX * rapportTailleX);
+            if (newX < 0) newX = 0;
+            else if (newX > (Constants.GAME_WIDTH - getWidth()))
+                newX = Constants.GAME_WIDTH - getWidth();
 
-        float rapportTailleX = (float) Constants.GAME_WIDTH / Gdx.graphics.getWidth();
-        float newX = this.getX() + (deltaX * rapportTailleX);
-        if (newX < 0) newX = 0;
-        else if (newX > (Constants.GAME_WIDTH - getWidth()))
-            newX = Constants.GAME_WIDTH - getWidth();
+            float rapportTailleY = (float) Constants.GAME_HEIGHT / Gdx.graphics.getHeight();
+            float newY = this.getY() - (deltaY * rapportTailleY);
+            if (newY < 0) newY = 0;
+            else if (newY > (Constants.GAME_HEIGHT - getHeight()))
+                newY = Constants.GAME_HEIGHT - getHeight();
 
-        float rapportTailleY = (float) Constants.GAME_HEIGHT / Gdx.graphics.getHeight();
-        float newY = this.getY() - (deltaY * rapportTailleY);
-        if (newY < 0) newY = 0;
-        else if (newY > (Constants.GAME_HEIGHT - getHeight()))
-            newY = Constants.GAME_HEIGHT - getHeight();
-
-        this.setX(newX);
-        this.setY(newY);
+            this.setX(newX);
+            this.setY(newY);
+        }
         return false;
     }
 

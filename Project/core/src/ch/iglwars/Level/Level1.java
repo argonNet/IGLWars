@@ -1,16 +1,7 @@
 package ch.iglwars.Level;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
-
-import java.util.Random;
-
-import ch.iglwars.Constants;
-import ch.iglwars.Enemy.BigEnemy;
-import ch.iglwars.Enemy.Enemy;
 import ch.iglwars.Enemy.MediumEnemy;
 import ch.iglwars.Enemy.SmallEnemy;
-import ch.iglwars.Player.Player;
 
 /**
  * Classe qui représente le 1er niveau de jeu

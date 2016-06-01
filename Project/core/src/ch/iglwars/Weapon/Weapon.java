@@ -64,7 +64,7 @@ public abstract class Weapon {
         return owner;
     }
 
-    protected Array<Ammo> getAmmosList() {
+    public Array<Ammo> getAmmosList() {
         return ammosList;
     }
 

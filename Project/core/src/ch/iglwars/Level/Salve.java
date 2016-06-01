@@ -2,15 +2,13 @@ package ch.iglwars.Level;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ch.iglwars.Enemy.Enemy;
-import ch.iglwars.Player.Player;
-import ch.iglwars.TextureManager;
+import ch.iglwars.Utils.CollisionsManager;
 
 /**
  * Classe qui représente une salve d'enemi. Elle utilisée pour la construction des niveau
@@ -108,21 +106,25 @@ public class Salve {
         this.delayBetweenEnemyInSalve = delayBetweenEnemyInSalve;
     }
 
-    public boolean collides(Player player) {
-        boolean collides = false;
-        float playerMinX = player.getX();
-        float playerMaxX = playerMinX + player.getWidth();
-        float playerMinY = player.getY();
-        float playerMaxY = playerMinY + player.getHeight();
-
+    public boolean collidesWithPlayer() {
         for (Enemy enemy : enemies) {
-            if (enemy.getX() < playerMaxX && enemy.getY() < playerMaxY &&
-                    (enemy.getX() + enemy.getWidth()) > playerMinX && (enemy.getY() + enemy.getHeight()) > playerMinY) {
-                collides = true;
+            // Permet de sortir de la boucle en cas de collision
+            // Donc pas de double perte de vie + moins de consommation de CPU
+            if (CollisionsManager.isEnemyCollidingWithPlayerAndAmmo(enemy, this)) {
+                return true;
             }
         }
+        return false;
+    }
 
-        return collides;
+    /**
+     * Appelée quand un enemy est touché
+     * TODO: implémenter le système de vies
+     * @param enemy l'ennemi concerné
+     */
+    public void destroyEnemy(Enemy enemy) {
+        enemy.Stop();
+        enemies.remove(enemy);
     }
 
 }

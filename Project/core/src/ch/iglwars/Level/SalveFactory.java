@@ -1,7 +1,7 @@
 package ch.iglwars.Level;
 
 
-import ch.iglwars.Constants;
+import ch.iglwars.Utils.Constants;
 import ch.iglwars.Enemy.Enemy;
 
 /**

@@ -1,9 +1,8 @@
 package ch.iglwars.Enemy;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Polygon;
 
-import ch.iglwars.Constants;
+import ch.iglwars.Utils.Constants;
 import ch.iglwars.TexturesMode.StaticTexture;
 import ch.iglwars.TexturesMode.TextureMode;
 import ch.iglwars.Weapon.Ammo.Bullet;
@@ -25,7 +24,7 @@ public class SmallEnemy extends Enemy{
                     "bullet_enemy_0.png", "bullet_enemy_1.png"
             };
     //Fréquence de tir par défaut
-    private static int BULLET_RATE = 1000;
+    private static int BULLET_RATE = 2000;
     //Nombre max de tirs à l'écran par  défaur
     private static int BULLET_MAX = 1;
 

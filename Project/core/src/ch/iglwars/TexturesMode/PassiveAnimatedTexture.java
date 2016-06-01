@@ -3,8 +3,8 @@ package ch.iglwars.TexturesMode;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import ch.iglwars.GraphicElement;
-import ch.iglwars.TextureManager;
+import ch.iglwars.Utils.GraphicElement;
+import ch.iglwars.Utils.TextureManager;
 
 /**
  * Définit une animation cyclic de texture. Chaque texture est afficher tous les X millisecondes

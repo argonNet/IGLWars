@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import ch.iglwars.Constants;
+import ch.iglwars.Utils.Constants;
 import ch.iglwars.IGLWars;
 import ch.iglwars.Level.Level1;
-import ch.iglwars.TextureManager;
 
 /**
  * Created by vitel on 19.05.16.
