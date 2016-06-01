@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -34,6 +36,8 @@ public class MainMenuScreen implements Screen {
     Stage stage;
     SpriteBatch batch;
     private TextButton.TextButtonStyle textButtonStyle;
+    private Texture texture;
+    private Sprite sprite;
 
     public MainMenuScreen(final IGLWars game) {
         this.game = game;
@@ -54,6 +58,11 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        sprite.draw(batch);
+        batch.end();
+
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
@@ -67,7 +76,6 @@ public class MainMenuScreen implements Screen {
         //bouton
         stage.act(Math.min(Gdx.graphics.getDeltaTime(),1/30f));
         stage.draw();
-        //Table.drawDebug(stage); changé par
         stage.setDebugAll(true);
     }
 
@@ -78,6 +86,21 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(1, h / w);
+        batch = new SpriteBatch();
+        texture = new Texture(Gdx.files.internal("backgroundMenu.png"));
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        TextureRegion region =
+                new TextureRegion(texture, 0, 0, 220, 400);
+        sprite = new Sprite(region);
+        sprite.setSize(0.9f,
+                0.9f * sprite.getHeight() / sprite.getWidth() );
+        sprite.setOrigin(sprite.getWidth() / 2,
+                sprite.getHeight() / 2);
+        sprite.setPosition(-sprite.getWidth() / 2,
+                -sprite.getHeight() / 2);
     }
 
     @Override
@@ -108,8 +131,8 @@ public class MainMenuScreen implements Screen {
         skin = new Skin();
 
         Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.GREEN);
-        pixmap.fill();
+/*        pixmap.setColor(Color.BLACK);
+        pixmap.fill();*/
 
         skin.add("white", new Texture(pixmap));
 
