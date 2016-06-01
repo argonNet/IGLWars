@@ -62,6 +62,7 @@ public class SmallEnemy extends Enemy{
     /**
      * Gestion du déplacement de l'enemy de base
      */
+    @Override
     protected void setPositionInLoop(){
         super.setPositionInLoop();
         this.setY(this.getY() - (60 * Gdx.graphics.getDeltaTime()));
