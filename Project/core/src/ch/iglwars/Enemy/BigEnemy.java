@@ -61,7 +61,7 @@ public class BigEnemy extends Enemy{
      * Gestion du déplacement de l'enemy
      */
     protected void setPositionInLoop(){
-        this.setY(this.getY() - (200 * Gdx.graphics.getDeltaTime()));
+        //this.setY(this.getY() - (200 * Gdx.graphics.getDeltaTime()));
 
 
         // Deplacement lateral avec descente à chaque bord

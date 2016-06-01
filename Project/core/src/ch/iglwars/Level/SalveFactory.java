@@ -1,8 +1,12 @@
 package ch.iglwars.Level;
 
 
+import java.util.Random;
+
 import ch.iglwars.Constants;
+import ch.iglwars.Enemy.BigEnemy;
 import ch.iglwars.Enemy.Enemy;
+import ch.iglwars.Player.Player;
 
 /**
  * Cette classe permet de généré des Salve. On peut la voir comme une définition des salves
@@ -18,7 +22,7 @@ public class SalveFactory {
      * @param delayBetweenEnemy Délai entre les différents enemis de la salve
      * @return La salve générée
      */
-    public static Salve OneColumnSalve(Class enemyClass, float columnPositionX, int quantity, int delayBetweenEnemy){
+    public static Salve oneColumnSalve(Class enemyClass, float columnPositionX, int quantity, int delayBetweenEnemy){
 
         Salve salve = new Salve(delayBetweenEnemy);
 
@@ -45,7 +49,7 @@ public class SalveFactory {
      * @param enemyClass type d'enemis a utiliser pour la salve
      * @return La salve générée
      */
-    public static Salve One4EnemiesLineSalve(Class enemyClass){
+    public static Salve one4EnemiesLineSalve(Class enemyClass){
         Salve salve = new Salve(0);
 
         float firstPos = Constants.GAME_WIDTH / 5;
@@ -65,5 +69,36 @@ public class SalveFactory {
 
         return salve;
     }
+
+    /**
+     * Création d'une salve de gros énemis positionnié de manière aléatoire sur l'ecran
+     * @param quantity nombre d'ennemis a positionner.
+     * @return Salve générée
+     */
+    public static Salve randomBigEnemySalve(int quantity){
+        Salve salve = new Salve(0);
+        Random random = new Random(System.currentTimeMillis());
+
+        float forbidden = Player.getInstance().getHeight() * 2;
+
+        try {
+
+            for(int i = 0; i < quantity;i++){
+                Enemy enemy = new BigEnemy();
+                enemy.setX(0);
+                enemy.setY(forbidden + random.nextInt(Constants.GAME_HEIGHT));
+                salve.addEnemy(enemy);
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return salve;
+    }
+
+
+
+
 
 }
