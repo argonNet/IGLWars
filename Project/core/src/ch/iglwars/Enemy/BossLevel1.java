@@ -16,6 +16,8 @@ public class BossLevel1 extends Enemy {
 
     public static final float WIDTH = 66;
     public static final float HEIGHT = 80;
+    private static int LIVES = 100;
+    private static int POINTS = 1000;
 
     private static final float SPEED = 100;
 
@@ -50,6 +52,10 @@ public class BossLevel1 extends Enemy {
     @Override
     protected void setProperties() {
         setHeight(HEIGHT);
+        setWidth(WIDTH);
+        setLives(LIVES);
+        setPoints(POINTS);
+
         //Arme de base du vaisseau joueur
         addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS , Bullet.class);
     }

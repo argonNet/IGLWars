@@ -15,6 +15,8 @@ public class BigEnemy extends Enemy{
 
     public static float WIDTH = 94;
     public static float HEIGHT = 94;
+    private static int LIVES = 20;
+    private static int POINTS = 50;
 
     public static String [] TEXTURES_NAME = {
             "enemy_big_0.png",
@@ -62,6 +64,10 @@ public class BigEnemy extends Enemy{
     protected void setProperties(){
         direction = DROITE;
         setHeight(HEIGHT);
+        setWidth(WIDTH);
+        setLives(LIVES);
+        setPoints(POINTS);
+
         //Arme de base du vaisseau
         addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
     }

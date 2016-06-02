@@ -14,13 +14,25 @@ import ch.iglwars.Weapon.Weapon;
  */
 public class CollisionsManager {
 
+    public static int controlColliding(Salve salve) {
+        int score = 0;
+        for (Enemy enemy : salve.getEnemies()) {
+            CollisionsManager.controlEnemyCollidingWithPlayerAndAmmo(enemy, salve);
+
+            if (Player.getInstance().isDestroyed()) {
+                return score;
+            }
+        }
+        return score;
+    }
+
     /**
      * Contrôle si deux éléments graphiques entrent en collision
      * @param element premier element
      * @param element2 deuxieme element
      * @return vrai s'il y a collision
      */
-    public static boolean isColliding(GraphicElement element, GraphicElement element2) {
+    private static boolean isColliding(GraphicElement element, GraphicElement element2) {
         if (element == null || element2 == null) {
             return false;
         }
@@ -47,56 +59,45 @@ public class CollisionsManager {
      * @param element l'élément graphique
      * @return vrai s'il y a collision
      */
-    public static boolean isCollidingWithPlayer(GraphicElement element) {
+    private static boolean isCollidingWithPlayer(GraphicElement element) {
         return isColliding(Player.getInstance(), element);
     }
 
     /**
      * Contrôle si un vaisseau et ses tirs entre en collision avec le joueur ou ses tirs
      * @param enemy le vaisseau
-     * @return vrai s'il y a une collision
+     * @param salve la salve qui contient le vaisseau
      */
-    public static boolean isEnemyCollidingWithPlayerAndAmmo(Enemy enemy, Salve salve) {
+    public static void controlEnemyCollidingWithPlayerAndAmmo(Enemy enemy, Salve salve) {
         Player player = Player.getInstance();
-        // On vérifie en premier lieu la collision des vaisseaux
-        boolean colliding = false;
 
         // On vérifie la collision
         if (isColliding(player, enemy)) {
-            colliding = true;
-            player.Stop();
-            salve.destroyEnemy(enemy);
+            player.damage(1);
+            enemy.damage(1);
         }
         // On vérifie les tirs du vaisseau
-        else if (isCollidingWithAmmo(enemy, player)) {
-            colliding = true;
-            player.Stop();
-        }
-        // On vérifie les tirs du joueur
-        else if (isCollidingWithAmmo(player, enemy)) {
-            colliding = true;
-            salve.destroyEnemy(enemy);
-        }
+        controlCollidingWithAmmo(enemy, player);
 
-        return colliding;
+        // On vérifie les tirs du joueur
+        controlCollidingWithAmmo(player, enemy);
     }
 
     /**
      * Contrôle si un vaisseau touche un autre avec ses tirs
      * @param shooter le tireur
      * @param target la cible
-     * @return vrai si touché au moins une fois
      */
-    public static boolean isCollidingWithAmmo(Ship shooter, Ship target) {
+    private static void controlCollidingWithAmmo(Ship shooter, Ship target) {
         if (shooter != null && target != null && shooter.getWeaponsList() != null) {
             for (Weapon weapon : shooter.getWeaponsList()) {
                 for (Ammo ammo : weapon.getAmmosList()) {
                     if (isColliding(target, ammo)) {
-                        return true;
+                        target.damage(ammo.getDamage());
+                        ammo.destroy();
                     }
                 }
             }
         }
-        return false;
     }
 }

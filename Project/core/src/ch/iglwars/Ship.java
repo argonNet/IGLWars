@@ -18,6 +18,9 @@ public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
     //TODO: En faire une liste ou un seul objet ?
     private List<Weapon> weaponsList;
 
+    // Nombre de vies que possède le vaisseau
+    private int lives;
+
 
     /**
      * Permet d'ajouter une nouvelle arme au vaisseau
@@ -94,11 +97,29 @@ public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
         }
     }
 
+    public void damage(int ammoPower) {
+        lives -= ammoPower;
+    }
+
+    public boolean isDestroyed() {
+        boolean destroyed = lives < 1;
+
+        if (destroyed) {
+            this.Stop();
+        }
+
+        return destroyed;
+    }
+
     public List<Weapon> getWeaponsList() {
         return weaponsList;
     }
 
     public void setWeaponsList(List<Weapon> weaponsList) {
         this.weaponsList = weaponsList;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 }

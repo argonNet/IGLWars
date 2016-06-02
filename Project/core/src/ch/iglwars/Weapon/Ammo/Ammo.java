@@ -20,6 +20,8 @@ public abstract class Ammo extends GraphicElement {
     private int damage;
     //Vitesse du tir
     private int speed;
+    // Destruction du tir
+    private boolean isDestroy = false;
 
     /**
      * Crée l'objet qui permet de gérer le mode de texture
@@ -59,9 +61,14 @@ public abstract class Ammo extends GraphicElement {
      * @return Vrai si détruit, sinon faux
      */
     public boolean isDestroyed() {
-        boolean isBorderLimit = getY() > (Constants.GAME_HEIGHT - getHeight()) ||
-                getY() < 0 - getHeight();
-        return isBorderLimit;
+        if(getY() > (Constants.GAME_HEIGHT - getHeight()) || getY() < 0 - getHeight()) {
+            isDestroy = true;
+        }
+        return isDestroy;
+    }
+
+    public void destroy() {
+        isDestroy = true;
     }
 
 
@@ -80,7 +87,7 @@ public abstract class Ammo extends GraphicElement {
         this.direction = direction;
     }
 
-    protected int getDamage() {
+    public int getDamage() {
         return damage;
     }
 

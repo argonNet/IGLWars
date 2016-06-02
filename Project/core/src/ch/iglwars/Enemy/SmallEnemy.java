@@ -16,7 +16,8 @@ public class SmallEnemy extends Enemy{
 
     public static float WIDTH = 31;
     public static float HEIGHT = 48;
-    private int direction = 1;
+    private static int LIVES = 1;
+    private static int POINTS = 5;
 
     //Textures par défaut pour les tirs du joueur
     private static String[] TEXTURES_BULLET =
@@ -50,7 +51,11 @@ public class SmallEnemy extends Enemy{
      */
     protected void setProperties(){
         setHeight(HEIGHT);
-        //Arme de base du vaisseau
+        setWidth(WIDTH);
+        setLives(LIVES);
+        setPoints(POINTS);
+
+        //Arme de base du vaisseau joueur
         addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
     }
 

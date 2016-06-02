@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.iglwars.Player.Player;
+import ch.iglwars.Utils.CollisionsManager;
 
 /**
  * Classe de base pour la gestion des niveaux de jeu
@@ -16,6 +17,10 @@ public abstract class Level {
     private List<Object> LevelContent;
     private int currentRunningElementIndex;
     private long lastDelayStartTime;
+
+    private int score;
+
+    private boolean ended = false;
 
     /**
      * Permet d'ajouter une salve
@@ -45,6 +50,7 @@ public abstract class Level {
      * dans la boucle de rendu
      */
     public void Run(SpriteBatch batch){
+        score = 0;
 
         if(currentRunningElementIndex < LevelContent.size() - 1) {
             if (LevelContent.get(currentRunningElementIndex) instanceof Integer) {
@@ -72,15 +78,27 @@ public abstract class Level {
         //Affichage de toutes les salves qui ont été lancée
         for (int i = 0; i <= currentRunningElementIndex;i++){ //TODO : Optimiser la boucle pour n'afficher que le salve disponible à l'ecran
             if(LevelContent.get(i) instanceof Salve){
+                score += ((Salve)LevelContent.get(i)).collidesWithPlayer();
                 ((Salve)LevelContent.get(i)).Run(batch);
-                if (((Salve)LevelContent.get(i)).collidesWithPlayer()) {
-                    // Collision
-                    //TODO: faire le comportement voulu en cas de collision
 
-               }
+                // Si le joueur est mort, le level est fini
+                if (Player.getInstance().isDestroyed()) {
+                    setEnded(true);
+                }
             }
         }
         Player.getInstance().draw(batch);
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    private void setEnded(boolean ended) {
+        this.ended = ended;
+    }
 }

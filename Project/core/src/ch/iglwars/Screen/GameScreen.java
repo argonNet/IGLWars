@@ -20,6 +20,8 @@ public class GameScreen implements Screen {
     private Viewport viewport;
     private OrthographicCamera camera;
 
+    private int score = 0;
+
     private Level1 level1;
 
     public GameScreen(final IGLWars game) {
@@ -55,7 +57,16 @@ public class GameScreen implements Screen {
 
         //début du mode de jeu
         game.getBatch().begin();
-        level1.Run(game.getBatch());
+
+        if (level1.isEnded()) {
+            game.getFont().draw(game.getBatch(), "Fin du jeu! score = " + score,
+                    Constants.GAME_WIDTH/2, Constants.GAME_HEIGHT/2);
+        }
+        else {
+            level1.Run(game.getBatch());
+            score += level1.getScore();
+            game.getFont().draw(game.getBatch(), "score = " + score, 0, Constants.GAME_HEIGHT - 20);
+        }
         game.getBatch().end();
     }
 

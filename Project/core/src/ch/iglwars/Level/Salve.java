@@ -104,25 +104,28 @@ public class Salve {
         this.delayBetweenEnemyInSalve = delayBetweenEnemyInSalve;
     }
 
-    public boolean collidesWithPlayer() {
-        for (Enemy enemy : enemies) {
-            // Permet de sortir de la boucle en cas de collision
-            // Donc pas de double perte de vie + moins de consommation de CPU
-            if (CollisionsManager.isEnemyCollidingWithPlayerAndAmmo(enemy, this)) {
-                return true;
+    public int collidesWithPlayer() {
+        int score = 0;
+        List<Enemy> enemiesToControl = new ArrayList<Enemy>(enemies);
+        for (Enemy enemy : enemiesToControl) {
+            CollisionsManager.controlEnemyCollidingWithPlayerAndAmmo(enemy, this);
+            if(enemy.isDestroyed()) {
+                score += enemy.getPoints();
+                removeEnemy(enemy);
             }
         }
-        return false;
+        return score;
     }
 
     /**
      * Appelée quand un enemy est touché
-     * TODO: implémenter le système de vies
      * @param enemy l'ennemi concerné
      */
-    public void destroyEnemy(Enemy enemy) {
-        enemy.Stop();
+    public void removeEnemy(Enemy enemy) {
         enemies.remove(enemy);
+
+        // Met à jour l'état de gone s'il n'y a plus d'enemis en vie
+        setGone(enemies.size() == 0);
     }
 
 }

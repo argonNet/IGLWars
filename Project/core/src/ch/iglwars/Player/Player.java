@@ -23,6 +23,8 @@ public class Player extends Ship implements GestureDetector.GestureListener {
     private static float WIDTH = 56;
     //Hauteur du vaisseau
     private static float HEIGHT = 64;
+    // Nombre de vies du vaisseau
+    private static int LIVES = 1;
 
     //Textures par défaut pour les tirs du joueur
     private static String[] TEXTURES_BULLET =
@@ -74,6 +76,7 @@ public class Player extends Ship implements GestureDetector.GestureListener {
     protected void setProperties() {
         setWidth(WIDTH);
         setHeight(HEIGHT);
+        setLives(LIVES);
         //Arme de base du vaisseau joueur
         addWeapon(SingleShoot.class, TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.HAUT, Bullet.class);
     }

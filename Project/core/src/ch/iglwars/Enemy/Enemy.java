@@ -10,6 +10,7 @@ public abstract class Enemy extends Ship {
     protected static int GAUCHE = -1;
     protected static int DROITE = 1;
 
+    private int points;
 
     /**
      * Constructeur par défaut, utilisé notament dans le cadre de la salve factory, se constructeur
@@ -39,6 +40,14 @@ public abstract class Enemy extends Ship {
             this.Stop();
         }
 
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public abstract float getHeight();
