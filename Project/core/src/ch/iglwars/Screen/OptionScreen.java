@@ -56,7 +56,7 @@ public class OptionScreen implements Screen {
 
         game.getBatch().begin();
         //titre
-        game.getFont().draw(game.getBatch(), "Option",
+        game.getFont().draw(game.getBatch(), "Setting",
                 Gdx.graphics.getHeight() / 6, Gdx.graphics.getHeight() / 8);
 
         //bouton
@@ -126,7 +126,7 @@ public class OptionScreen implements Screen {
     }
 
     public void createReturnButton(){
-        final TextButton returnButton=new TextButton("Retour",textButtonStyle);
+        final TextButton returnButton=new TextButton("Back",textButtonStyle);
         returnButton.setPosition(Gdx.graphics.getWidth()/2 - (returnButton.getWidth()/2),
                 Gdx.graphics.getHeight()/2 - Gdx.graphics.getHeight()/4);
         stage.addActor(returnButton);

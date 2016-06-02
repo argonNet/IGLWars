@@ -99,7 +99,7 @@ public abstract class GraphicElement {
         setX(Constants.GAME_WIDTH);
     }
 
-    protected boolean isRunning() {return isRunning;}
+    public boolean isRunning() {return isRunning;}
 
 
     protected float getRotation(){return this.rotation;}

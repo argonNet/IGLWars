@@ -59,7 +59,7 @@ public class GameScreen implements Screen {
         game.getBatch().begin();
 
         if (level1.isEnded()) {
-            game.getFont().draw(game.getBatch(), "Fin du jeu! score = " + score,
+            game.getFont().draw(game.getBatch(), "Game Over! score = " + score,
                     Constants.GAME_WIDTH/2, Constants.GAME_HEIGHT/2);
         }
         else {

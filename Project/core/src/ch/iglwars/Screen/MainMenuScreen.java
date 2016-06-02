@@ -167,7 +167,7 @@ public class MainMenuScreen implements Screen {
     }
 
     public void createOptionButton(){
-        final TextButton optionButton=new TextButton("Options",textButtonStyle);
+        final TextButton optionButton=new TextButton("Settings",textButtonStyle);
         optionButton.setPosition(Gdx.graphics.getWidth()/2 - optionButton.getWidth()/2,
                 Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 3);
 

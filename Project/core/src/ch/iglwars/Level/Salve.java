@@ -53,6 +53,7 @@ public class Salve {
      * @param batch Element de LibGDX qui gère le rendu
      */
     public void Run(SpriteBatch batch){
+        boolean allEnemiesDestroyed = true;
 
         //Gestion des envois des enemis de la salve
         if(enemyToStartIndex < enemies.size() &&
@@ -66,10 +67,15 @@ public class Salve {
         //Affichage des enemis en train de progresser
         for (Enemy enemy : enemies) {
             enemy.draw(batch);
+            if (enemy.isRunning()) {
+                allEnemiesDestroyed = false;
+            }
         }
 
-        //Test si l'entier de la salve a été lancé
-        if(!this.isGone() && enemyToStartIndex == enemies.size() -1){
+        // Test si l'entier de la salve n'est plus à l'écran
+        // Pour tester si elle a juste été lancée, mettre:
+        // "enemyToStartIndex == enemies.size() -1" à la place de "allEnemiesDestroyed"
+        if(!this.isGone() && allEnemiesDestroyed){
             this.setGone(true);
         }
     }
@@ -125,7 +131,9 @@ public class Salve {
         enemies.remove(enemy);
 
         // Met à jour l'état de gone s'il n'y a plus d'enemis en vie
-        setGone(enemies.size() == 0);
+        if(enemies.size() == 0) {
+            setGone(true);
+        }
     }
 
 }
