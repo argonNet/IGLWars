@@ -25,7 +25,7 @@ public class SmallEnemy extends Enemy{
             };
     //Fréquence de tir par défaut
     private static int BULLET_RATE = 2000;
-    //Nombre max de tirs à l'écran par  défaur
+    //Nombre max de tirs à l'écran par  défaut
     private static int BULLET_MAX = 1;
 
     /**
@@ -50,7 +50,7 @@ public class SmallEnemy extends Enemy{
      */
     protected void setProperties(){
         setHeight(HEIGHT);
-        //Arme de base du vaisseau joueur
+        //Arme de base du vaisseau
         addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
     }
 
