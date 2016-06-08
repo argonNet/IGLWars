@@ -214,6 +214,7 @@ public class Player extends Ship implements GestureDetector.GestureListener {
     public static Player getInstance() {
         if (instance == null) {
             instance = new Player();
+            instance.setX(Constants.GAME_WIDTH / 2 - (instance.getWidth() /2));
             instance.Start();
         }
         return instance;
