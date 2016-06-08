@@ -2,8 +2,16 @@ package ch.iglwars.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -23,6 +31,33 @@ public class GameScreen implements Screen {
     private int score = 0;
 
     private Level1 level1;
+
+
+    /**
+     * Demande le nom du joueur à l'écran
+     **/
+    private String getPlayerName(){
+        Skin skin = new Skin();
+        Stage stage = new Stage();
+
+        Gdx.input.setInputProcessor(stage);
+
+        Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
+        skin.add("white", new Texture(pixmap));
+
+        // Store the default libgdx font under the name "default".
+        BitmapFont bfont = new BitmapFont();
+        bfont.getData().setScale(6, 6);
+
+        skin.add("default", bfont);
+
+        TextField txtUsername = new TextField("",skin);
+        txtUsername.setMessageText("test");
+        txtUsername.setPosition(30, 30);
+
+
+        return   txtUsername.getText();
+    }
 
     public GameScreen(final IGLWars game) {
         this.game = game;
@@ -59,8 +94,8 @@ public class GameScreen implements Screen {
         game.getBatch().begin();
 
         if (level1.isEnded()) {
-            game.getFont().draw(game.getBatch(), "Game Over! score = " + score,
-                    Constants.GAME_WIDTH/2, Constants.GAME_HEIGHT/2);
+            game.setScreen(new GameOverScreen(game));
+
         }
         else {
             level1.Run(game.getBatch());
