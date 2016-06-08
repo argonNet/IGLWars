@@ -56,7 +56,7 @@ public class SmallEnemy extends Enemy{
         setPoints(POINTS);
 
         //Arme de base du vaisseau joueur
-        addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
+        setWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
     }
 
     @Override

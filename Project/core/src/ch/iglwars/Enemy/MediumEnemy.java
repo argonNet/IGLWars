@@ -15,7 +15,7 @@ public class MediumEnemy extends Enemy {
 
     public static float WIDTH = 48;
     public static float HEIGHT = 80;
-    private static int LIVES = 5;
+    private static int LIVES = 3;
     private static int POINTS = 20;
 
     public static String [] TEXTURES_NAME = {
@@ -64,7 +64,7 @@ public class MediumEnemy extends Enemy {
         setPoints(POINTS);
 
         //Arme de base du vaisseau
-        addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
+        setWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS, Bullet.class);
     }
 
     @Override

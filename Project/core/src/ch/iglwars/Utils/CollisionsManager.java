@@ -89,15 +89,15 @@ public class CollisionsManager {
      * @param target la cible
      */
     private static void controlCollidingWithAmmo(Ship shooter, Ship target) {
-        if (shooter != null && target != null && shooter.getWeaponsList() != null) {
-            for (Weapon weapon : shooter.getWeaponsList()) {
-                for (Ammo ammo : weapon.getAmmosList()) {
+        if (shooter != null && target != null && shooter.getWeapon() != null) {
+
+                for (Ammo ammo : shooter.getWeapon().getAmmosList()) {
                     if (isColliding(target, ammo)) {
                         target.damage(ammo.getDamage());
                         ammo.destroy();
                     }
                 }
-            }
+
         }
     }
 }

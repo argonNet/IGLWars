@@ -46,16 +46,18 @@ public class SalveFactory {
     /**
      * Crée une ligne d'ennemi.
      * @param enemyClass type d'enemis a utiliser pour la salve
+     * @param quantity nombre d'enemis a envoyer dans la salve
+     * @param delayBetweenEnemy Délai entre les différents ennemis de la salve
      * @return La salve générée
      */
-    public static Salve one4EnemiesLineSalve(Class enemyClass){
-        Salve salve = new Salve(0);
+    public static Salve oneLineSalve(Class enemyClass, int quantity, int delayBetweenEnemy){
+        Salve salve = new Salve(delayBetweenEnemy);
 
-        float firstPos = Constants.GAME_WIDTH / 5;
+        float firstPos = Constants.GAME_WIDTH / (quantity + 1);
         try {
 
 
-            for(int i = 0; i < 4;i++){
+            for(int i = 0; i < quantity;i++){
                 Enemy enemy = (Enemy)enemyClass.newInstance();
                 enemy.setX(firstPos * (i+1));
                 enemy.setY(Constants.GAME_HEIGHT);
@@ -78,14 +80,13 @@ public class SalveFactory {
         Salve salve = new Salve(0);
         Random random = new Random(System.currentTimeMillis());
 
-        float forbidden = Player.getInstance().getHeight() * 2;
-
+        float forbidden = Constants.GAME_HEIGHT / 2;
         try {
 
             for(int i = 0; i < quantity;i++){
                 Enemy enemy = new BigEnemy();
                 enemy.setX(0);
-                enemy.setY(forbidden + random.nextInt(Constants.GAME_HEIGHT));
+                enemy.setY(forbidden + random.nextInt(Constants.GAME_HEIGHT / 2 - (int)enemy.getHeight()));
                 salve.addEnemy(enemy);
             }
 

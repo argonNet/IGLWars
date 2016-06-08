@@ -53,8 +53,6 @@ public class Salve {
      * @param batch Element de LibGDX qui gère le rendu
      */
     public void Run(SpriteBatch batch){
-        boolean allEnemiesDestroyed = true;
-
         //Gestion des envois des enemis de la salve
         if(enemyToStartIndex < enemies.size() &&
                 TimeUtils.millis() - lastEnemyStartTime > delayBetweenEnemyInSalve){
@@ -67,15 +65,10 @@ public class Salve {
         //Affichage des enemis en train de progresser
         for (Enemy enemy : enemies) {
             enemy.draw(batch);
-            if (enemy.isRunning()) {
-                allEnemiesDestroyed = false;
-            }
         }
 
         // Test si l'entier de la salve n'est plus à l'écran
-        // Pour tester si elle a juste été lancée, mettre:
-        // "enemyToStartIndex == enemies.size() -1" à la place de "allEnemiesDestroyed"
-        if(!this.isGone() && allEnemiesDestroyed){
+        if(!this.isGone()  && enemyToStartIndex == enemies.size() -1){
             this.setGone(true);
         }
     }

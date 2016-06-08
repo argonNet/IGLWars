@@ -16,7 +16,7 @@ public class BossLevel1 extends Enemy {
 
     public static final float WIDTH = 66;
     public static final float HEIGHT = 80;
-    private static int LIVES = 100;
+    private static int LIVES = 70;
     private static int POINTS = 1000;
 
     private static final float SPEED = 100;
@@ -27,9 +27,9 @@ public class BossLevel1 extends Enemy {
                     "bullet_enemy_0.png", "bullet_enemy_1.png"
             };
     //Fréquence de tir par défaut
-    private static int BULLET_RATE = 700;
+    private static int BULLET_RATE = 400;
     //Nombre max de tirs à l'écran par défaut
-    private static int BULLET_MAX = 4;
+    private static int BULLET_MAX = 10;
 
     public static String [] TEXTURES_NAME = {
             "level1_boss_0.png",
@@ -43,7 +43,7 @@ public class BossLevel1 extends Enemy {
      */
     @Override
     protected TextureMode createTextureMode() {
-        return new PassiveAnimatedTexture(5,TEXTURES_NAME);
+        return new PassiveAnimatedTexture(50,TEXTURES_NAME);
     }
 
     /**
@@ -57,7 +57,7 @@ public class BossLevel1 extends Enemy {
         setPoints(POINTS);
 
         //Arme de base du vaisseau joueur
-        addWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS , Bullet.class);
+        setWeapon(SingleShoot.class,TEXTURES_BULLET, BULLET_RATE, BULLET_MAX, Constants.BAS , Bullet.class);
     }
 
 

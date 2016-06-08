@@ -2,9 +2,6 @@ package ch.iglwars;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ch.iglwars.TexturesMode.TextureMode;
 import ch.iglwars.Weapon.Weapon;
 
@@ -14,16 +11,15 @@ import ch.iglwars.Weapon.Weapon;
  */
 public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
 
-    //Liste d'arme que possède le vaisseau
-    //TODO: En faire une liste ou un seul objet ?
-    private List<Weapon> weaponsList;
+    //Arme que possède le vaisseau
+    private Weapon weapon;
 
     // Nombre de vies que possède le vaisseau
     private int lives;
 
 
     /**
-     * Permet d'ajouter une nouvelle arme au vaisseau
+     * D'intialiser une arme au vaisseau (va remplacer celle existante)
      *
      * @param textures   Textures à donner aux tir de l'arme
      * @param rateBullet La fréquence de tir
@@ -31,26 +27,19 @@ public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
      * @param direction  La direction du tir (soit HAUT ou BAS)
      * @param ammoClass  Le type (Class) des munitions
      */
-    protected void addWeapon(Class weaponClass, String[] textures, int rateBullet, int maxBullet, int direction, Class ammoClass) {
-        if (weaponsList == null)
-        {
-            weaponsList = new ArrayList<Weapon>();
-        }
+    protected void setWeapon(Class weaponClass, String[] textures, int rateBullet, int maxBullet, int direction, Class ammoClass) {
         try {
 
-            Weapon weapon = (Weapon)weaponClass.newInstance();
-            weapon.setOwner(this);
-            weapon.setAmmoRate(rateBullet);
-            weapon.setAmmoMax(maxBullet);
-            weapon.setTextures(textures);
-            weapon.setDirectionTir(direction);
-            weapon.setAmmoClass(ammoClass);
-            weaponsList.add(weapon);
+            weapon = (Weapon) weaponClass.newInstance();
+            getWeapon().setOwner(this);
+            getWeapon().setAmmoRate(rateBullet);
+            getWeapon().setAmmoMax(maxBullet);
+            getWeapon().setTextures(textures);
+            getWeapon().setDirectionTir(direction);
+            getWeapon().setAmmoClass(ammoClass);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
-        //weaponsList.add(new Weapon(this, rateBullet, maxBullet, textures, direction, ammoClass));
     }
 
 
@@ -83,17 +72,15 @@ public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
 
     /**
      * Methode qui dessine l'objet
-     * Dessine aussi le tir des armes
+     * Dessine aussi le tir de l'arme
      *
      * @param batch Element de LibGDX qui gère le rendu
      */
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if (weaponsList != null && !weaponsList.isEmpty()) {
-            for (Weapon weapon : weaponsList) {
-                weapon.shoot(batch);
-            }
+        if (getWeapon() != null) {
+            getWeapon().shoot(batch);
         }
     }
 
@@ -111,15 +98,11 @@ public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
         return destroyed;
     }
 
-    public List<Weapon> getWeaponsList() {
-        return weaponsList;
-    }
-
-    public void setWeaponsList(List<Weapon> weaponsList) {
-        this.weaponsList = weaponsList;
-    }
-
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
     }
 }
