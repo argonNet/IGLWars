@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,7 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import ch.iglwars.*;
 
 /**
- * Created by Esiskadi on 31.05.16.
+ * Created by Esiskadi on 26.05.16.
  */
 public class ScoreScreen implements Screen {
 
@@ -33,6 +35,9 @@ public class ScoreScreen implements Screen {
     Stage stage;
     SpriteBatch batch;
     private TextButton.TextButtonStyle textButtonStyle;
+    private Texture texture;
+    private Sprite sprite;
+
 
     public ScoreScreen(final IGLWars game) {
         this.game = game;
@@ -51,20 +56,25 @@ public class ScoreScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        sprite.draw(batch);
+        batch.end();
+
         camera.update();
         game.getBatch().setProjectionMatrix(camera.combined);
 
         game.getBatch().begin();
         //titre
-        game.getFont().draw(game.getBatch(), "Score",
-                Gdx.graphics.getHeight() / 6, Gdx.graphics.getHeight() / 8);
+        game.getFont().draw(game.getBatch(), "IGLWars",
+                Gdx.graphics.getHeight() / 6, Gdx.graphics.getHeight() / 6);
+
+        game.getBatch().end();
 
         //bouton
         stage.act(Math.min(Gdx.graphics.getDeltaTime(),1/30f));
         stage.draw();
         stage.setDebugAll(true);
-
-        game.getBatch().end();
     }
 
     @Override
@@ -74,6 +84,21 @@ public class ScoreScreen implements Screen {
 
     @Override
     public void show() {
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(1, h / w);
+        batch = new SpriteBatch();
+        texture = new Texture(Gdx.files.internal("backgroundMenu.png"));
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        TextureRegion region =
+                new TextureRegion(texture, 0, 0, 220, 400);
+        sprite = new Sprite(region);
+        sprite.setSize(0.9f,
+                0.9f * sprite.getHeight() / sprite.getWidth() );
+        sprite.setOrigin(sprite.getWidth() / 2,
+                sprite.getHeight() / 2);
+        sprite.setPosition(-sprite.getWidth() / 2,
+                -sprite.getHeight() / 2);
     }
 
     @Override
@@ -104,14 +129,12 @@ public class ScoreScreen implements Screen {
         skin = new Skin();
 
         Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.BLUE);
-        pixmap.fill();
 
         skin.add("white", new Texture(pixmap));
 
         // Store the default libgdx font under the name "default".
         BitmapFont bfont = new BitmapFont();
-        bfont.getData().setScale(6, 6);
+        bfont.getData().setScale(3, 3);
 
         skin.add("default", bfont);
 
@@ -126,12 +149,13 @@ public class ScoreScreen implements Screen {
     }
 
     public void createReturnButton(){
-        final TextButton returnButton=new TextButton("Back",textButtonStyle);
-        returnButton.setPosition(Gdx.graphics.getWidth()/2 - (returnButton.getWidth()/2),
-                Gdx.graphics.getHeight()/2 - Gdx.graphics.getHeight()/4);
-        stage.addActor(returnButton);
+        final TextButton scoreButton=new TextButton("Back",textButtonStyle);
+        scoreButton.setPosition(Gdx.graphics.getWidth()/2 - scoreButton.getWidth()/2,
+                Gdx.graphics.getHeight() / 2 - Gdx.graphics.getHeight() / 4);
 
-        returnButton.addListener(new ChangeListener() {
+        stage.addActor(scoreButton);
+
+        scoreButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 game.setScreen(new MainMenuScreen(game));
             }

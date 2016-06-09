@@ -143,7 +143,7 @@ public class GameOverScreen implements Screen {
 
         // Store the default libgdx font under the name "default".
         BitmapFont bfont = new BitmapFont();
-        bfont.getData().setScale(6, 6);
+        bfont.getData().setScale(3, 3);
 
         skin.add("default", bfont);
 
@@ -177,6 +177,7 @@ public class GameOverScreen implements Screen {
         returnButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 //ICI FAIRE QUELQUE CHOSE POUR LA SAUVEGARDE
+                game.setScreen(new MainMenuScreen(game));
             }
         });
     }

@@ -131,14 +131,12 @@ public class MainMenuScreen implements Screen {
         skin = new Skin();
 
         Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
-/*        pixmap.setColor(Color.BLACK);
-        pixmap.fill();*/
 
         skin.add("white", new Texture(pixmap));
 
         // Store the default libgdx font under the name "default".
         BitmapFont bfont = new BitmapFont();
-        bfont.getData().setScale(6, 6);
+        bfont.getData().setScale(3, 3);
 
         skin.add("default", bfont);
 
