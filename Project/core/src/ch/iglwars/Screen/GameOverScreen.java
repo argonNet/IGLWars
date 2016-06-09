@@ -177,7 +177,7 @@ public class GameOverScreen implements Screen {
         returnButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 //ICI FAIRE QUELQUE CHOSE POUR LA SAUVEGARDE
-                game.setScreen(new MainMenuScreen(game));
+                //game.setScreen(new MainMenuScreen(game));
             }
         });
     }
