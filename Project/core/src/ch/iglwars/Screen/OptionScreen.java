@@ -53,6 +53,12 @@ public class OptionScreen implements Screen {
         CheckBox boxMusic=new CheckBox("Music",skin);
         table.add(boxMusic).width(100);
         table.row();
+        boxMusic.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setMusic(((CheckBox)actor).isChecked());
+            }
+        });
 
         table.add(l).size(100,20);
         table.row();

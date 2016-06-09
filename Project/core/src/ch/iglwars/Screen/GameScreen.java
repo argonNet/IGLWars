@@ -2,6 +2,7 @@ package ch.iglwars.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -27,6 +28,7 @@ public class GameScreen implements Screen {
     final IGLWars game;
     private Viewport viewport;
     private OrthographicCamera camera;
+    private Music music;
 
     private int score = 0;
 
@@ -60,10 +62,13 @@ public class GameScreen implements Screen {
     }
 
     public GameScreen(final IGLWars game) {
+
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         viewport = new FitViewport(Constants.GAME_WIDTH, Constants.GAME_HEIGHT, camera);
+        music = Gdx.audio.newMusic(Gdx.files.internal("defense-line.mp3"));
+        music.setLooping(true);
 
         level1 = new Level1();
     }
@@ -108,25 +113,30 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         // Est appelée quand l'écran s'affiche
+        music.play();
     }
 
     @Override
     public void hide() {
         // Est appelée quand on quitte l'écran
+        music.stop();
     }
 
     @Override
     public void pause() {
         // Est appelée quand l'app est mise en pause (éteindre l'écran du tel, press home menu)
+        music.pause();
     }
 
     @Override
     public void resume() {
         // Est appelée quand l'app est reprise après une pause
+        music.play();
     }
 
     @Override
     public void dispose() {
         // TODO : dispose tous les objets necessaires
+        music.dispose();
     }
 }
