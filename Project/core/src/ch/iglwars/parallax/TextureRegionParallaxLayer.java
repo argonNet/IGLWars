@@ -1,9 +1,10 @@
-package com.rahul.libgdx.parallax;
+package ch.iglwars.Parallax;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.rahul.libgdx.parallax.Utils.WH;
+
+import ch.iglwars.Parallax.Utils.WH;
 
 /**
  * 
@@ -14,7 +15,7 @@ import com.rahul.libgdx.parallax.Utils.WH;
  * @author Rahul
  *
  */
-public class TextureRegionParallaxLayer extends ParallaxLayer{
+public class TextureRegionParallaxLayer extends ParallaxLayer {
 
 	private TextureRegion texRegion;
 	private float padLeft=0,padRight=0,padBottom=0,padTop=0;
@@ -58,11 +59,11 @@ public class TextureRegionParallaxLayer extends ParallaxLayer{
 		switch(wh){
 		    case width:
 		    	setRegionWidth(oneDimen);
-		    	setRegionHeight(Utils.calculateOtherDimension(WH.width, oneDimen, this.texRegion));
+		    	setRegionHeight(ch.iglwars.Parallax.Utils.calculateOtherDimension(WH.width, oneDimen, this.texRegion));
 		    	break;
 		    case height:
 		    	setRegionHeight(oneDimen);
-		    	setRegionWidth(Utils.calculateOtherDimension(WH.height, oneDimen, this.texRegion));
+		    	setRegionWidth(ch.iglwars.Parallax.Utils.calculateOtherDimension(WH.height, oneDimen, this.texRegion));
 		    	break;
 		}
 		setParallaxRatio(parallaxScrollRatio);

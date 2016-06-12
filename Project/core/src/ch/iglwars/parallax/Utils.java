@@ -1,4 +1,4 @@
-package com.rahul.libgdx.parallax;
+package ch.iglwars.Parallax;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**

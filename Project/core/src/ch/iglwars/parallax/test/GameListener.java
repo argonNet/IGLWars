@@ -1,4 +1,4 @@
-package com.rahul.libgdx.parallax.test;
+package ch.iglwars.Parallax.test;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -11,12 +11,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.rahul.libgdx.parallax.ParallaxBackground;
-import com.rahul.libgdx.parallax.TextureRegionParallaxLayer;
-import com.rahul.libgdx.parallax.Utils;
-import com.rahul.libgdx.parallax.Utils.WH;
+
+import ch.iglwars.Parallax.TextureRegionParallaxLayer;
+import ch.iglwars.Parallax.Utils;
+import ch.iglwars.Parallax.Utils.WH;
 /**
- * Usage example of {@link ParallaxBackground}
+ * Usage example of {@link ch.iglwars.Parallax.ParallaxBackground}
  * @author Rahul Verma
  *
  */
@@ -27,7 +27,7 @@ public class GameListener extends ApplicationAdapter {
 	
 	private TextureAtlas atlas;
 	
-	private ParallaxBackground parallaxBackground;
+	private ch.iglwars.Parallax.ParallaxBackground parallaxBackground;
 	
 	private final float worldWidth = 40;
 	private float worldHeight;
@@ -78,7 +78,7 @@ public class GameListener extends ApplicationAdapter {
 		TextureRegion buildingsRegionC = atlas.findRegion("buildings_c");
 		TextureRegionParallaxLayer buildingsLayerC = new TextureRegionParallaxLayer(buildingsRegionC, worldWidth, new Vector2(1.3f,1.3f), WH.width);
        	
-		parallaxBackground = new ParallaxBackground();
+		parallaxBackground = new ch.iglwars.Parallax.ParallaxBackground();
     	parallaxBackground.addLayers(mountainsLayerA,mountainsLayerB,cloudsLayer,buildingsLayerA,buildingsLayerB,buildingsLayerC);
 
 		//parallaxBackground.addLayers(mountainsLayerA);

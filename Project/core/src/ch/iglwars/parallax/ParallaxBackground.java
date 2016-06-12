@@ -1,4 +1,4 @@
-package com.rahul.libgdx.parallax;
+package ch.iglwars.Parallax;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -6,14 +6,15 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.rahul.libgdx.parallax.ParallaxLayer.TileMode;
+
+import ch.iglwars.Parallax.ParallaxLayer.TileMode;
 /**
  * A ParallaxBacground encapsulates the logic to Render ParallaxLayers.
  * It owns a collection of ParallaxLayers. 
  * These Layers a rendered on screen showing parallax effect based on scrolling characteristics of individual layers. 
  * This rendering module does not owns any Batch ,you need to provide one in the draw method. 
  * <p>
- * Also see {@link ParallaxLayer}. 
+ * Also see {@link ParallaxLayer}.
  * @author Rahul Verma
  *
  */
