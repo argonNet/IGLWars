@@ -9,6 +9,8 @@ public class IGLWars extends Game {
 	private SpriteBatch batch;
 	private BitmapFont font;
 
+	private boolean music = true;
+
 	/**
 	 * Initialisation du jeu
 	 */
@@ -36,5 +38,13 @@ public class IGLWars extends Game {
 
 	public BitmapFont getFont() {
 		return font;
+	}
+
+	public boolean isMusic() {
+		return music;
+	}
+
+	public void setMusic(boolean music) {
+		this.music = music;
 	}
 }
