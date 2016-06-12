@@ -34,7 +34,7 @@ public class Player extends Ship implements GestureDetector.GestureListener {
     //Fréquence de tir par défaut
     private static int BULLET_RATE = 300;
     //Nombre max de tirs à l'écran par  défaur
-    private static int BULLET_MAX = 5;
+    private static int BULLET_MAX = 10;
 
     //Instance unique de la classe
     private static Player instance;
