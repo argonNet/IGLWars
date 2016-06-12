@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import ch.iglwars.Score.Leaderboard;
+
 public class IGLWars extends Game {
 
 	private SpriteBatch batch;
@@ -20,6 +22,8 @@ public class IGLWars extends Game {
 		// Pour tester, on utilise la police LibGDX's par defaut : Arial font.
 		font = new BitmapFont();
 		this.setScreen(new ch.iglwars.Screen.MainMenuScreen(this));
+
+		(new Leaderboard()).getScores();
 	}
 
 	public void render() {

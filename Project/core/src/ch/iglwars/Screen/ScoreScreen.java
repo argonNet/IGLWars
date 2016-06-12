@@ -16,6 +16,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import ch.iglwars.*;
+import ch.iglwars.Score.Leaderboard;
+import ch.iglwars.Score.Score;
+import ch.iglwars.Score.ScoreLoadingListener;
 
 /**
  * Created by Esiskadi on 26.05.16.
@@ -23,12 +26,15 @@ import ch.iglwars.*;
 
 public class ScoreScreen implements Screen {
 
-    Skin skin;
-    Stage stage;
+    private Skin skin;
+    private Stage stage;
+    private Table table;
 
-    IGLWars game;
+    private IGLWars game;
     private Viewport viewport;
     private OrthographicCamera camera;
+
+    private Leaderboard board;
 
     public ScoreScreen(IGLWars pgame){
         this.game = pgame;
@@ -44,33 +50,19 @@ public class ScoreScreen implements Screen {
         skin = new Skin( Gdx.files.internal("ui/defaultskin.json"));
 
         //TO-DO : Une fois accès à la bd, faire une boucle
-        Table table=new Table();
+        table =new Table();
         table.setSize(800,480);
         table.setPosition(0, 400);
 
-        TextField textField = new TextArea("Nom : Toto  Score : 2230", skin);
-        table.add(textField).width(200).height(100);
-        table.row();
+        board = new Leaderboard();
+        board.addListener(new ScoreLoadingListener() {
+            @Override
+            public void scoreLoaded() {
+                displayBoard();
+            }
+        });
+        board.loadScores();
 
-        TextField textField2 = new TextArea("Nom : Toto  Score : 2120", skin);
-        table.add(textField2).width(200).height(100);
-        table.row();
-
-        TextField textField3 = new TextArea("Nom : Toto  Score : 2000", skin);
-        table.add(textField3).width(200).height(100);
-        table.row();
-
-        TextField textField4 = new TextArea("Nom : Jason  Score : 1600", skin);
-        table.add(textField4).width(200).height(100);
-        table.row();
-
-        TextField textField5 = new TextArea("Nom : Momo  Score : 1400", skin);
-        table.add(textField5).width(200).height(100);
-        table.row();
-
-        TextField textField6 = new TextArea("Nom : To  Score : 0", skin);
-        table.add(textField6).width(200).height(100);
-        table.row();
 
         final TextButton backButton=new TextButton("Back",skin);
         table.add(backButton).width(200).height(50);
@@ -84,6 +76,15 @@ public class ScoreScreen implements Screen {
             }
         });
     }
+
+    private void displayBoard(){
+        for (Score score : board.getScores()) {
+            TextField textField = new TextArea(score.getName() + " " + score.getScore() + " " + score.getDate().toString(), skin);
+            table.add(textField).width(200).height(100);
+            table.row();
+        }
+    }
+
 
     @Override
     public void render(float delta) {
