@@ -19,7 +19,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Date;
+
 import ch.iglwars.*;
+import ch.iglwars.Player.Player;
+import ch.iglwars.Score.Leaderboard;
+import ch.iglwars.Score.Score;
 import ch.iglwars.Utils.Constants;
 
 /**
@@ -39,6 +44,7 @@ public class GameOverScreen implements Screen {
     private TextButton.TextButtonStyle textButtonStyle;
     private TextField.TextFieldStyle textFieldStyle;
 
+    private  TextField txtUsername;
 
     private void addGameOverLabel(){
 
@@ -51,7 +57,7 @@ public class GameOverScreen implements Screen {
     }
 
     private void addUserNameTextFieldToStage(){
-        TextField txtUsername = new TextField("",textFieldStyle);
+        txtUsername = new TextField("",textFieldStyle);
         txtUsername.setWidth(Gdx.graphics.getWidth()/2);
         txtUsername.setPosition(
                 Gdx.graphics.getWidth()/2 - (txtUsername.getWidth()/2),
@@ -177,7 +183,8 @@ public class GameOverScreen implements Screen {
         returnButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 //ICI FAIRE QUELQUE CHOSE POUR LA SAUVEGARDE
-                //game.setScreen(new MainMenuScreen(game));
+                (new Leaderboard()).addNewScore(new Score(txtUsername.getText(),new Date(),150));
+
             }
         });
     }

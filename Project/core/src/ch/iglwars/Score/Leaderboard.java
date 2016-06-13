@@ -16,8 +16,10 @@ import com.badlogic.gdx.Net.HttpMethods;
 import com.badlogic.gdx.Net.HttpRequest;
 import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 
 
 /**
@@ -79,6 +81,16 @@ public class Leaderboard implements HttpResponseListener {
         httpGet.setUrl(URL + SCORE_TABLE);
         httpGet.setHeader("Content-Type", "application/json");
         Gdx.net.sendHttpRequest(httpGet,Leaderboard.this);
+    }
+
+    public void addNewScore(Score score){
+        HttpRequest httpPost = new HttpRequest(HttpMethods.POST);
+        httpPost.setUrl(URL + SCORE_TABLE);
+        httpPost.setHeader("Content-Type", "application/json");
+        Json json = new Json();
+        json.setOutputType(JsonWriter.OutputType.json);
+        httpPost.setContent(json.toJson(score));
+        Gdx.net.sendHttpRequest(httpPost,Leaderboard.this);
     }
 
 
