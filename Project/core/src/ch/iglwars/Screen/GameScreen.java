@@ -145,7 +145,7 @@ public class GameScreen implements Screen {
         camera.update();
 
         if (level1.isEnded()) {
-            game.setScreen(new GameOverScreen(game));
+            game.setScreen(new GameOverScreen(game, score));
 
         }
         else {
@@ -184,5 +184,9 @@ public class GameScreen implements Screen {
     public void dispose() {
         // TODO : dispose tous les objets necessaires
         music.dispose();
+    }
+
+    public int getScore() {
+        return score;
     }
 }

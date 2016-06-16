@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import ch.iglwars.Score.Leaderboard;
+import ch.iglwars.Utils.Preference.*;
 
 public class IGLWars extends Game {
 
@@ -12,6 +13,12 @@ public class IGLWars extends Game {
 	private BitmapFont font;
 
 	private boolean music = true;
+
+	/**
+	Sert au preference
+	*/
+	private PreferenceManager preferenceManager;
+	private MusicManager musicManager;
 
 	/**
 	 * Initialisation du jeu
@@ -24,6 +31,17 @@ public class IGLWars extends Game {
 		this.setScreen(new ch.iglwars.Screen.MainMenuScreen(this));
 
 		(new Leaderboard()).getScores();
+
+		/**
+		 * Sert au préférence
+		 */
+		// create the preference manager
+		preferenceManager = new PreferenceManager();
+
+		// create the music manager
+		musicManager = new MusicManager();
+		musicManager.setVolume(preferenceManager.getVolume() );
+		musicManager.setEnabled(preferenceManager.isMusicEnabled() );
 	}
 
 	public void render() {
@@ -44,11 +62,12 @@ public class IGLWars extends Game {
 		return font;
 	}
 
-	public boolean isMusic() {
-		return music;
+	// Services' getters
+	public PreferenceManager getPreferenceManager(){
+		return preferenceManager;
 	}
 
-	public void setMusic(boolean music) {
-		this.music = music;
+	public MusicManager getMusicManager() {
+		return musicManager;
 	}
 }
