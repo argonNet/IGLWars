@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import ch.iglwars.Utils.Constants;
 import ch.iglwars.Ship;
 import ch.iglwars.TexturesMode.StaticTexture;
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.TexturesMode.ITextureMode;
 import ch.iglwars.Weapon.Ammo.Bullet;
 import ch.iglwars.Weapon.SingleShoot;
 
@@ -56,7 +56,7 @@ public class Player extends Ship implements GestureDetector.GestureListener {
      * @return Objet descendant de TextureMode
      */
     @Override
-    protected TextureMode createTextureMode() {
+    protected ITextureMode createTextureMode() {
         return new StaticTexture("player_standing.png");
     }
 

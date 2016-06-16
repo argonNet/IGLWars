@@ -8,7 +8,7 @@ import ch.iglwars.Utils.TextureManager;
 /**
  * Représente une simple texture static
  */
-public class StaticTexture implements TextureMode {
+public class StaticTexture implements ITextureMode {
 
     private Texture texture;
 

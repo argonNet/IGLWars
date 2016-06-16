@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import ch.iglwars.Utils.Constants;
 import ch.iglwars.Player.Player;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.TexturesMode.ITextureMode;
 import ch.iglwars.Weapon.Ammo.Bullet;
 import ch.iglwars.Weapon.SingleShoot;
 
@@ -42,7 +42,7 @@ public class BossLevel1 extends Enemy {
      * @return Texture à créer
      */
     @Override
-    protected TextureMode createTextureMode() {
+    protected ITextureMode createTextureMode() {
         return new PassiveAnimatedTexture(50,TEXTURES_NAME);
     }
 

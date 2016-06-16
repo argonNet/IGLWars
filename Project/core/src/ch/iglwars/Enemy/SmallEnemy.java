@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 import ch.iglwars.Utils.Constants;
 import ch.iglwars.TexturesMode.StaticTexture;
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.TexturesMode.ITextureMode;
 import ch.iglwars.Weapon.Ammo.Bullet;
 import ch.iglwars.Weapon.SingleShoot;
 
@@ -60,7 +60,7 @@ public class SmallEnemy extends Enemy{
     }
 
     @Override
-    protected TextureMode createTextureMode() {
+    protected ITextureMode createTextureMode() {
         return new StaticTexture("enemy_small.png");
     }
 

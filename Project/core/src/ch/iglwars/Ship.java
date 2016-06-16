@@ -2,7 +2,7 @@ package ch.iglwars;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.TexturesMode.ITextureMode;
 import ch.iglwars.Weapon.Weapon;
 
 /**
@@ -49,7 +49,7 @@ public abstract class Ship extends ch.iglwars.Utils.GraphicElement {
      * @return Objet descendant de TextureMode
      */
     @Override
-    protected TextureMode createTextureMode() {
+    protected ITextureMode createTextureMode() {
         return null;
     }
 

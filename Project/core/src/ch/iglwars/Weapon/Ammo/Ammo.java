@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import ch.iglwars.Utils.Constants;
 import ch.iglwars.Utils.GraphicElement;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.TexturesMode.ITextureMode;
 
 /**
  * Classe  de base représentant une munition pour une arme
@@ -29,7 +29,7 @@ public abstract class Ammo extends GraphicElement {
      * @return Objet descendant de TextureMode
      */
     @Override
-    protected TextureMode createTextureMode() {
+    protected ITextureMode createTextureMode() {
         if (getTextures() != null) {
             return new PassiveAnimatedTexture(200, getTextures());
         } else {

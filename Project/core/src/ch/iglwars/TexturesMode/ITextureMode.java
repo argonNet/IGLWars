@@ -8,7 +8,7 @@ import ch.iglwars.Utils.GraphicElement;
 /**
  * Classe de base pour la gestion des modes de textures
  */
-public interface TextureMode {
+public interface ITextureMode {
 
     /**
      * Methode qui retourne la texture à dessiner en fonction de l'élément qu'elle représente
