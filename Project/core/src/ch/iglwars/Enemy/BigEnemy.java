@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 import ch.iglwars.Utils.Constants;
 import ch.iglwars.TexturesMode.PassiveAnimatedTexture;
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.TexturesMode.ITextureMode;
 import ch.iglwars.Weapon.Ammo.Bullet;
 import ch.iglwars.Weapon.SingleShoot;
 
@@ -73,7 +73,7 @@ public class BigEnemy extends Enemy{
     }
 
     @Override
-    protected TextureMode createTextureMode() {
+    protected ITextureMode createTextureMode() {
         return new PassiveAnimatedTexture(5,TEXTURES_NAME);
     }
 

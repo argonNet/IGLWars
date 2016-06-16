@@ -32,7 +32,7 @@ public class CollisionsManager {
      * @param element2 deuxieme element
      * @return vrai s'il y a collision
      */
-    private static boolean isColliding(GraphicElement element, GraphicElement element2) {
+    public static boolean isColliding(GraphicElement element, GraphicElement element2) {
         if (element == null || element2 == null) {
             return false;
         }

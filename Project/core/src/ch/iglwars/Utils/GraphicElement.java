@@ -3,7 +3,7 @@ package ch.iglwars.Utils;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import ch.iglwars.TexturesMode.TextureMode;
+import ch.iglwars.TexturesMode.ITextureMode;
 
 /**
  * TO-DO: Mettre des éléments de la classe Enemy ici pour que la classe Player puisse en bénéficier !
@@ -20,7 +20,7 @@ public abstract class GraphicElement {
 
     private boolean isRunning; //Définit si un élément est en cours de déplacement
 
-    private TextureMode textureMode;
+    private ITextureMode textureMode;
 
     /**
      * Création des éléments graphiques
@@ -35,7 +35,7 @@ public abstract class GraphicElement {
      * Crée l'objet qui permet de gérer le mode de texture
      * @return Objet descendant de TextureMode
      */
-    protected abstract TextureMode createTextureMode();
+    protected abstract ITextureMode createTextureMode();
 
     /**
      * Permet au enfant de définir leur position dans la loop graphique avant de dessiner l'élément.
@@ -117,7 +117,7 @@ public abstract class GraphicElement {
     public float getY() {return y;}
     public void setY(float y) {this.y = y;}
 
-    public void setTextureMode(TextureMode textureMode) {
+    public void setTextureMode(ITextureMode textureMode) {
         this.textureMode = textureMode;
     }
 }

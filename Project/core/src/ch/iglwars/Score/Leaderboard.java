@@ -6,7 +6,6 @@ import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,7 +65,8 @@ public class Leaderboard implements HttpResponseListener {
             try{
                 date = df.parse(strligne[2]);
             }catch(ParseException e){
-                date = Date.from(Instant.MIN);
+                date = new Date();
+                date.setTime(0);
             }
             scores.add(new Score(strligne[1],date, Integer.parseInt(strligne[3])));
         }
