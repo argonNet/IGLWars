@@ -16,16 +16,26 @@ import com.badlogic.gdx.Net.HttpMethods;
 import com.badlogic.gdx.Net.HttpRequest;
 import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.sun.media.jfxmedia.logging.Logger;
 
+import ch.iglwars.Exception.LoadScoreException;
+import ch.iglwars.Exception.SaveScoreException;
 
 /**
- * Accès au leaderboard
+ * Accès au leaderboard sur le web.
  */
 public class Leaderboard implements HttpResponseListener {
+
+    private final static int SUCCESSFUL_REQUEST = 200;
+
+    private final static int REQUEST_LOAD_SCORES = 1000;
+    private final static int REQUEST_ADD_SCORE = 2000;
 
     private final static String URL = "http://www.softeo.ch/api.php/";
     private final static String SCORE_TABLE = "Scores";
@@ -36,10 +46,7 @@ public class Leaderboard implements HttpResponseListener {
 
     private ArrayList<Score> scores;
 
-    private URL url = null;
-    private URLConnection conn = null;
-    private String app_id;
-    private String app_key;
+    private int currentRequest = 0;
 
     /**
      * Chargement des données au formats Json (texte) à des données objets
@@ -65,10 +72,6 @@ public class Leaderboard implements HttpResponseListener {
         }
     }
 
-    /**
-     *
-     * @param listener
-     */
     public void addListener(ScoreLoadingListener listener) {
         scoreLoadingListeners.add(listener);
     }
@@ -80,9 +83,15 @@ public class Leaderboard implements HttpResponseListener {
         HttpRequest httpGet = new HttpRequest(HttpMethods.GET);
         httpGet.setUrl(URL + SCORE_TABLE);
         httpGet.setHeader("Content-Type", "application/json");
+
+        currentRequest = REQUEST_LOAD_SCORES;
         Gdx.net.sendHttpRequest(httpGet,Leaderboard.this);
     }
 
+    /**
+     * Ajout d'un nouveau score
+     * @param score Score à ajouter sur le serveur.
+     */
     public void addNewScore(Score score){
         HttpRequest httpPost = new HttpRequest(HttpMethods.POST);
         httpPost.setUrl(URL + SCORE_TABLE);
@@ -90,71 +99,51 @@ public class Leaderboard implements HttpResponseListener {
         Json json = new Json();
         json.setOutputType(JsonWriter.OutputType.json);
         httpPost.setContent(json.toJson(score));
+
+        currentRequest = REQUEST_ADD_SCORE;
         Gdx.net.sendHttpRequest(httpPost,Leaderboard.this);
     }
 
 
-//
-//    public void add_net_score(){
-//        // LibGDX NET CLASS
-//        HttpRequest httpPost = new HttpRequest(HttpMethods.POST);
-//        httpPost.setUrl("https://api.parse.com/1/classes/score/");
-//        httpPost.setHeader("Content-Type", "application/json");
-//        httpPost.setHeader("X-Parse-Application-Id", app_id);
-//        httpPost.setHeader("X-Parse-REST-API-Key", app_key);
-//        httpPost.setContent("{\"score\": 1337, \"user\": \"CarelessLabs Java\"}");
-//        Gdx.net.sendHttpRequest(httpPost,Parse.this);
-//    }
-//
-//    public boolean add_score(){
-//        // USING JAVA IO AND NET CLASS
-//        try {
-//            conn = url.openConnection();
-//            conn.setDoOutput(true);
-//            conn.setRequestProperty("X-Parse-Application-Id", app_id);
-//            conn.setRequestProperty("X-Parse-REST-API-Key", app_key);
-//            conn.setRequestProperty("Content-type", "application/json");
-//            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-//            out.write("{\"score\": 1337, \"user\": \"CarelessLabs GDX\"}");
-//
-//            out.close();
-//            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//            String decodedString;
-//            while ((decodedString = in.readLine()) != null) {
-//                System.out.println(decodedString);
-//            }
-//            in.close();
-//            return true;
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//            return false;
-//        }
-//    }
-
-
-
     @Override
-    public void handleHttpResponse(HttpResponse httpResponse) {
-        //final int statusCode = httpResponse.getStatus().getStatusCode();
-        String textResponse = httpResponse.getResultAsString();
-        fromJSONtoScores(textResponse);
+    public void handleHttpResponse(HttpResponse httpResponse){
 
-        for (ScoreLoadingListener event : scoreLoadingListeners){
-            event.scoreLoaded();
+        try {
+            final int statusCode = httpResponse.getStatus().getStatusCode();
+
+            switch (currentRequest) {
+                case REQUEST_ADD_SCORE:
+                    if (statusCode != SUCCESSFUL_REQUEST) {
+                        throw new SaveScoreException();
+                    }
+                    break;
+
+                case REQUEST_LOAD_SCORES:
+
+                    if (statusCode != SUCCESSFUL_REQUEST) {
+                        throw new LoadScoreException();
+                    }
+
+                    String textResponse = httpResponse.getResultAsString();
+                    fromJSONtoScores(textResponse);
+
+                    for (ScoreLoadingListener event : scoreLoadingListeners) {
+                        event.scoreLoaded();
+                    }
+                    break;
+            }
+        }catch (Exception e) {
+            Logger.logMsg(Logger.ERROR,e.getMessage());
         }
     }
 
-
-
     @Override
     public void failed(Throwable t) {
-        System.out.println(t.getMessage());
+        Logger.logMsg(Logger.ERROR,t.getMessage());
     }
 
     @Override
-    public void cancelled() {
-        //--
-    }
+    public void cancelled() {}
 
     public ArrayList<Score> getScores(){
         return this.scores;
