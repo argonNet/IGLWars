@@ -9,7 +9,7 @@ import ch.iglwars.Utils.TextureManager;
 /**
  * Définit une animation cyclic de texture. Chaque texture est afficher tous les X millisecondes
  */
-public class PassiveAnimatedTexture extends TextureMode {
+public class PassiveAnimatedTexture implements TextureMode {
 
     private Texture[] textures;
     private int currentTexture;
