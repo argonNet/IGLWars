@@ -10,7 +10,7 @@ import ch.iglwars.*;
 /**
  * Created by Esiskadi on 26.05.16
  */
-public class MainMenuScreen extends AbstractScreen {
+public class MainMenuScreen extends BaseScreen {
     public MainMenuScreen(IGLWars game) {
         super(game);
     }
