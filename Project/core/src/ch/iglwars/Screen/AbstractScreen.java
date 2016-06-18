@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,10 +29,32 @@ public abstract class AbstractScreen implements Screen {
     private TextureAtlas atlas;
     private Table table;
 
+    //Police de taille 16
+    private static boolean fontLoaded;
+    protected static BitmapFont font16;
+
     public AbstractScreen(IGLWars game ){
         this.game = game;
         this.stage = new Stage();
     }
+
+    /**
+     * Chargement de la pokice par défaut pour l'application
+     */
+    private static void loadFont(){
+        if(!fontLoaded) {
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("skin/Ayuthaya.ttf"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size = 25;
+
+            font16 = generator.generateFont(parameter);
+            generator.dispose();
+
+
+            fontLoaded = true;
+        }
+    }
+
 
     protected String getName()
     {
@@ -49,7 +72,15 @@ public abstract class AbstractScreen implements Screen {
         if( skin == null ) {
             FileHandle skinFile = Gdx.files.internal( "skin/defaultskin.json" );
             skin = new Skin( skinFile );
+
+//            //Chargement des polices
+//            loadFont();
+//
+//            //Ajout des polices générée
+//            skin.remove("default-font",BitmapFont.class);
+//            skin.add("default-font", font16, BitmapFont.class);
         }
+
         return skin;
     }
 

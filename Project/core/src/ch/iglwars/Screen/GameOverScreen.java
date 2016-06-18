@@ -52,16 +52,17 @@ public class GameOverScreen extends AbstractScreen {
         table.add("Score : " + String.valueOf(score) + "points").spaceBottom( 50 );
         table.row();
 
-        TextField nameTextField = new TextField("", getSkin());
+        final TextField nameTextField = new TextField("", getSkin());
         table.add(nameTextField).uniform().fill();
         table.row();
         table.add("").spaceBottom( 50 );
         table.row();
 
         // Ajout du bouton Back (to main menu)
-        TextButton scoresButton = new TextButton( "Back", getSkin() );
+        TextButton scoresButton = new TextButton( "Save", getSkin() );
         scoresButton.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
+                (new Leaderboard()).addNewScore(new Score(nameTextField.getText(),new Date(), score));
                 game.setScreen(new MainMenuScreen(game));
             }
         });

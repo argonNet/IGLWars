@@ -7,6 +7,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -64,12 +66,20 @@ public class Leaderboard implements HttpResponseListener {
             Date date;
             try{
                 date = df.parse(strligne[2]);
-            }catch(ParseException e){
+            }catch(Exception e){
                 date = new Date();
                 date.setTime(0);
             }
             scores.add(new Score(strligne[1],date, Integer.parseInt(strligne[3])));
         }
+
+        //Tri des scores chargés
+        Collections.sort(scores, new Comparator<Score>() {
+            @Override
+            public int compare(Score o1, Score o2) {
+                return o2.getScore() - o1.getScore();
+            }
+        });
     }
 
     public void addListener(ScoreLoadingListener listener) {
