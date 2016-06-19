@@ -5,89 +5,81 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
 
-import ch.iglwars.IGLWars;
-
 /**
  * Created by Esiskadi on 16.06.2016.
  *
  * Sert à gérer la music
  */
 public class MusicManager implements Disposable {
-        public enum IGLWarsMusic {
-            MENU( "defense-line.mp3" ),
-            LEVEL( "defense-line.mp3" );
+    public enum IGLWarsMusic {
+        MENU( "defense-line.mp3" );
+        /** pour ajouter une seconde musique
+         * LEVEL( "defense-line.mp3" );
+         */
+        private String fileName;
+        private Music musicResource;
 
-            private String fileName;
-            private Music musicResource;
-
-            private IGLWarsMusic(String fileName ) {
-                this.fileName = fileName;
-            }
-
-            public String getFileName() {
-                return fileName;
-            }
-
-            public Music getMusicResource() {
-                return musicResource;
-            }
-
-            public void setMusicResource(Music musicBeingPlayed ){
-                this.musicResource = musicBeingPlayed;
-            }
+        private IGLWarsMusic(String fileName ) {
+            this.fileName = fileName;
         }
 
-        /**
-        Music en train d'être joué
-        */
-        private IGLWarsMusic musicBeingPlayed;
-
-        /**
-        * Volume
-        */
-        private float volume = 1f;
-
-        /**
-         * Whether the music is enabled.
-         */
-        private boolean enabled = true;
-
-        /**
-         * Creates the music manager.
-         */
-        public MusicManager()
-        {
+        public String getFileName() {
+            return fileName;
         }
 
-        /**
-         * Plays the given music (starts the streaming).
-         * <p>
-         * If there is already a music being played it is stopped automatically.
-         */
+        public Music getMusicResource() {
+            return musicResource;
+        }
+
+        public void setMusicResource(Music musicBeingPlayed ){
+            this.musicResource = musicBeingPlayed;
+        }
+    }
+
+    /**
+     Music en train d'être joué
+     */
+    private IGLWarsMusic musicBeingPlayed;
+
+    /**
+     * Volume
+     */
+    private float volume = 1f;
+
+    /**
+     * Musique activée ou non
+     */
+    private boolean enabled = true;
+
+    public MusicManager()
+    {
+    }
+
+    /**
+     * Plays joue la musique
+     * Si déjà jouée, ne coupe pas
+     */
     public void play(IGLWarsMusic music ) {
-        // check if the music is enabled
+        // Si musique activée ou non
         if( ! enabled ) return;
 
-        // check if the given music is already being played
+        // Si musique déjà en cours
         if( musicBeingPlayed == music ) return;
 
-        // stop any music being played
         stop();
 
-        // start streaming the new music
         FileHandle musicFile = Gdx.files.internal( music.getFileName() );
         Music musicResource = Gdx.audio.newMusic( musicFile );
         musicResource.setVolume( volume );
         musicResource.setLooping( true );
         musicResource.play();
 
-        // set the music being played
         musicBeingPlayed = music;
         musicBeingPlayed.setMusicResource( musicResource );
     }
 
     /**
-     * Stops and disposes the current music being played, if any.
+     * Stops et disposes de la musique.
      */
     public void stop()
     {
@@ -100,11 +92,9 @@ public class MusicManager implements Disposable {
     }
 
     /**
-     * Sets the music volume which must be inside the range [0,1].
+     * Définition du volume
      */
-    public void setVolume(
-            float volume )
-    {
+    public void setVolume(float volume ){
         // check and set the new volume
         if( volume < 0 || volume > 1f ) {
             throw new IllegalArgumentException( "The volume must be inside the range: [0,1]" );
@@ -118,24 +108,20 @@ public class MusicManager implements Disposable {
     }
 
     /**
-     * Enables or disabled the music.
+     * Active ou désactive la musique
      */
-    public void setEnabled(
-            boolean enabled )
-    {
+    public void setEnabled(boolean enabled ){
         this.enabled = enabled;
 
-        // if the music is being deactivated, stop any music being played
         if( ! enabled ) {
             stop();
         }
     }
 
     /**
-     * Disposes the music manager.
+     * Disposes du music manager.
      */
-    public void dispose()
-    {
+    public void dispose(){
         stop();
     }
 }

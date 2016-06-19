@@ -54,6 +54,7 @@ public class OptionScreen extends BaseScreen {
         table.row();
         table.add( "Music" );
         table.add( musicCheckbox ).colspan( 2 ).left();
+        musicCheckbox.getCells().get(0).size(25, 25); //Augmentation de la taille
 
         Slider volumeSlider = new Slider( 0f, 1f, 0.1f, false, getSkin());
         volumeSlider.setValue( game.getPreferenceManager().getVolume() );
