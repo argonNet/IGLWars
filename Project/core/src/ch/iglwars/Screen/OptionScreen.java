@@ -18,7 +18,7 @@ import ch.iglwars.Utils.Preference.MusicManager;
  *
  * Sert à afficher les options (son et bouton pour supprimer les scores)
  */
-public class OptionScreen extends AbstractScreen {
+public class OptionScreen extends BaseScreen {
     private Label volumeValue;
 
     public OptionScreen(IGLWars game){

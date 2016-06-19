@@ -18,7 +18,7 @@ import ch.iglwars.IGLWars;
  *
  * Base pour tous les menus
  */
-public abstract class AbstractScreen implements Screen {
+public abstract class BaseScreen implements Screen {
 
     protected final IGLWars game;
     protected final Stage stage;
@@ -29,32 +29,10 @@ public abstract class AbstractScreen implements Screen {
     private TextureAtlas atlas;
     private Table table;
 
-    //Police de taille 16
-    private static boolean fontLoaded;
-    protected static BitmapFont font16;
-
-    public AbstractScreen(IGLWars game ){
+    public BaseScreen(IGLWars game ){
         this.game = game;
         this.stage = new Stage();
     }
-
-    /**
-     * Chargement de la pokice par défaut pour l'application
-     */
-    private static void loadFont(){
-        if(!fontLoaded) {
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("skin/Ayuthaya.ttf"));
-            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = 25;
-
-            font16 = generator.generateFont(parameter);
-            generator.dispose();
-
-
-            fontLoaded = true;
-        }
-    }
-
 
     protected String getName()
     {
@@ -73,12 +51,8 @@ public abstract class AbstractScreen implements Screen {
             FileHandle skinFile = Gdx.files.internal( "skin/defaultskin.json" );
             skin = new Skin( skinFile );
 
-//            //Chargement des polices
-//            loadFont();
-//
-//            //Ajout des polices générée
-//            skin.remove("default-font",BitmapFont.class);
-//            skin.add("default-font", font16, BitmapFont.class);
+            //Aggrandissement de la taille de la font
+            skin.getFont("default-font").getData().setScale(2);
         }
 
         return skin;
