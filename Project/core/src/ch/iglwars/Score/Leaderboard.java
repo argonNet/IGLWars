@@ -27,6 +27,7 @@ import com.sun.media.jfxmedia.logging.Logger;
 
 import ch.iglwars.Exception.LoadScoreException;
 import ch.iglwars.Exception.SaveScoreException;
+import ch.iglwars.Utils.Constants;
 
 /**
  * Accès au leaderboard sur le web.
@@ -57,7 +58,7 @@ public class Leaderboard implements HttpResponseListener {
         JsonValue root = (new JsonReader()).parse(json);
         JsonValue records =  root.get(SCORE_TABLE).get(RECORDS);
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat(Constants.DB_DATE_FORMAT);
 
         scores = new ArrayList<Score>();
 

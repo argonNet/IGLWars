@@ -10,4 +10,6 @@ public class Constants {
     public final static int HAUT = 1;
     public final static int BAS = -1;
 
+    public final static String DB_DATE_FORMAT  = "yyyy-MM-dd";
+
 }
