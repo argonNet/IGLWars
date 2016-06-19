@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import ch.iglwars.IGLWars;
+import ch.iglwars.Utils.Preference.MusicManager;
 /**
  * Created by Esiskadi on 16.06.2016.
  *
@@ -73,6 +74,7 @@ public abstract class BaseScreen implements Screen {
     public void show() {
         // set the stage as the input processor
         Gdx.input.setInputProcessor( stage );
+        game.getMusicManager().play(MusicManager.IGLWarsMusic.MENU );
     }
 
     @Override

@@ -33,7 +33,6 @@ public class GameScreen implements Screen {
     private Viewport viewport;
     private OrthographicCamera camera;
     private OrthographicCamera backgroundCamera;
-    private Music music;
 
     private int score = 0;
 
@@ -102,8 +101,6 @@ public class GameScreen implements Screen {
 
         viewport = new FitViewport(Constants.GAME_WIDTH, Constants.GAME_HEIGHT, camera);
         createBackgroundLayers();
-        music = Gdx.audio.newMusic(Gdx.files.internal("defense-line.mp3"));
-        music.setLooping(true);
 
         level1 = new Level1();
     }
@@ -159,31 +156,26 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         // Est appelée quand l'écran s'affiche
-        music.play();
     }
 
     @Override
     public void hide() {
         // Est appelée quand on quitte l'écran
-        music.stop();
     }
 
     @Override
     public void pause() {
         // Est appelée quand l'app est mise en pause (éteindre l'écran du tel, press home menu)
-        music.pause();
     }
 
     @Override
     public void resume() {
         // Est appelée quand l'app est reprise après une pause
-        music.play();
     }
 
     @Override
     public void dispose() {
         // TODO : dispose tous les objets necessaires
-        music.dispose();
     }
 
     public int getScore() {
