@@ -12,6 +12,8 @@ public class IGLWars extends Game {
 	private SpriteBatch batch;
 	private BitmapFont font;
 
+	private boolean music = true;
+
 	/**
 	 Sert au preference
 	 */
@@ -40,6 +42,7 @@ public class IGLWars extends Game {
 		musicManager.setVolume(preferenceManager.getVolume() );
 		musicManager.setEnabled(preferenceManager.isMusicEnabled() );
 
+		//En dernier sinon erreur
 		this.setScreen(new ch.iglwars.Screen.MainMenuScreen(this));
 	}
 
