@@ -49,15 +49,20 @@ public class ScoreScreen extends BaseScreen {
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
-        for (Score score : board.getScores()) {
+        //Affichage des 20 meilleurs scores
+        if(board.getScores() != null) {
+            for (int i = 0; i < 20; i++) {
+                Score score = board.getScores().get(i);
+                if(score != null) {
 
-            table.add(new Label(score.getName(),getSkin())).padRight(50);
-            table.add(new Label(format.format(score.getDate()),getSkin()));
-            table.add(new Label(String.valueOf(score.getScore()),getSkin())).padLeft(50).right();
+                    table.add(new Label(score.getName(), getSkin())).padRight(50);
+                    table.add(new Label(format.format(score.getDate()), getSkin()));
+                    table.add(new Label(String.valueOf(score.getScore()), getSkin())).padLeft(50).right();
 
-            table.row();
+                    table.row();
+                }
+            }
         }
-
         //Ajout du bouton Back à la fin du tableau
         TextButton scoresButton = new TextButton( "Back", getSkin() );
         scoresButton.addListener(new ChangeListener() {
